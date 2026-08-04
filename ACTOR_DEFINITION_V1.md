@@ -34,7 +34,7 @@ Responsible for:
 - 保存完整原文
 - 保存来源
 - 检查完整性
-- 更新 State
+- 更新 State（写入 `outputs/daily_runs/{id}.position.md` 对应生产线区块，用 `scripts/update_position.py`）
 
 ### Actor: User
 
@@ -79,7 +79,7 @@ Responsible for:
 
 - 根据审核意见修改
 - 保存最终发布稿
-- 更新 State
+- 更新 State（写入 `outputs/daily_runs/{id}.position.md` 对应生产线区块，用 `scripts/update_position.py`）
 - 输出最终可复制版本
 
 ## Stage 5: Publish
@@ -113,7 +113,7 @@ Responsible for:
 - 保存点赞
 - 保存评论
 - 保存收益
-- 更新 State
+- 更新 State（写入 `outputs/daily_runs/{id}.position.md` 对应生产线区块，用 `scripts/update_position.py`）
 - 建立历史记录
 - 维护数据库
 

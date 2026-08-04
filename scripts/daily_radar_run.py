@@ -201,6 +201,45 @@ def metadata(args: argparse.Namespace, source_id: str, paths: dict[str, Path]) -
     return json.dumps(data, ensure_ascii=False, indent=2)
 
 
+def position_line_block(
+    line: str,
+    enabled: bool,
+    deliverable: Path,
+    now: str,
+) -> str:
+    if not enabled:
+        return f"""## {line} Line
+
+- Enabled: NO
+"""
+    return f"""## {line} Line
+
+- Enabled: YES
+- Current Stage: Transform
+- Current State: Ready for Transform
+- Current Deliverable: {deliverable}
+- Current Actor: Claude
+- Next Action: 根据 Prompt 生成头条文案 V1，保存到 outputs/articles/draft/
+- On Failure: 留在 Transform，修复输入（雷达原文/参数/Prompt）后重新执行
+- Last Updated: {now} by daily_radar_run.py
+"""
+
+
+def position_markdown(args: argparse.Namespace, source_id: str, paths: dict[str, Path], b_enabled: bool) -> str:
+    now = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return f"""# Current Position：{args.title}
+
+关联 ID：{source_id}
+
+本文件是该选题唯一的位置台账（Single Source of Truth）。A/B 两条生产线分区独立记录，
+Stage/State 取值只使用 STAGE_DEFINITION_V1.md / STATE_DEFINITION_V1.md 已定义的名词，
+Current Actor 取该 Stage 在 ACTOR_DEFINITION_V1.md 中的 Primary Owner。
+后续状态迁移由 scripts/update_position.py 更新，不手工编辑本文件的字段值。
+
+{position_line_block("A", True, paths["line_a_prompt"], now)}
+{position_line_block("B", b_enabled, paths["line_b_prompt"], now)}"""
+
+
 def daily_index(args: argparse.Namespace, source_id: str, paths: dict[str, Path]) -> str:
     return f"""# 每日雷达双生产线运行包：{args.title}
 
@@ -231,6 +270,7 @@ def daily_index(args: argparse.Namespace, source_id: str, paths: dict[str, Path]
 - 六项拆解：{paths["simple_analysis"]}
 - 发布顺序：{paths["publish_schedule"]}
 - 元数据：{paths["metadata"]}
+- 当前位置台账：{paths["position"]}
 
 ## 今日执行顺序
 
@@ -279,6 +319,11 @@ def main() -> None:
     parser.add_argument("--original-type", default="雷达文案")
     parser.add_argument("--facts-file", default="", help="Optional markdown file with original facts.")
     parser.add_argument("--selection-card", default="", help="Optional radar selection card path.")
+    parser.add_argument(
+        "--single-line",
+        action="store_true",
+        help="P2/P3：只走 A 线，B 线在位置台账中标记 Enabled: NO。默认双线（P1）。",
+    )
     args = parser.parse_args()
 
     source_path, raw_content = read_text(args.source)
@@ -297,6 +342,7 @@ def main() -> None:
         "publish_schedule": ROOT / "outputs" / "daily_runs" / f"{base_name}.publish_schedule.md",
         "metadata": ROOT / "outputs" / "daily_runs" / f"{base_name}.metadata.json",
         "index": ROOT / "outputs" / "daily_runs" / f"{base_name}.index.md",
+        "position": ROOT / "outputs" / "daily_runs" / f"{base_name}.position.md",
     }
 
     write(paths["source"], source_markdown(args, source_path, raw_content, source_id))
@@ -312,8 +358,10 @@ def main() -> None:
     write(paths["publish_schedule"], publish_schedule(source_id))
     write(paths["metadata"], metadata(args, source_id, paths))
     write(paths["index"], daily_index(args, source_id, paths))
+    write(paths["position"], position_markdown(args, source_id, paths, b_enabled=not args.single_line))
 
     print(paths["index"])
+    print(paths["position"])
 
 
 if __name__ == "__main__":

@@ -25,6 +25,19 @@ FIELD_ORDER = [
     "Last Updated",
 ]
 
+# 合法的 Stage 迁移表，按 ARCHITECTURE_V1.md 的 Workflow 推导：
+# Collect → Transform → Review → {Publish(PASS) | Revision(REVISION) | End(REJECT)}
+# Revision → Review；Publish → Feedback；Feedback/End 为终态。
+# 允许原地停留在同一 Stage（同 Stage 内的 State 推进）。
+LEGAL_NEXT_STAGE: dict[str, set[str]] = {
+    "Transform": {"Transform", "Review"},
+    "Review": {"Review", "Publish", "Revision", "End"},
+    "Revision": {"Revision", "Review"},
+    "Publish": {"Publish", "Feedback"},
+    "Feedback": {"Feedback"},
+    "End": {"End"},
+}
+
 
 def slugify(text: str) -> str:
     cleaned = re.sub(r"[^\w一-鿿]+", "-", text.strip())
@@ -77,6 +90,11 @@ def main() -> None:
     parser.add_argument("--next-action", dest="next_action", help="下一步动作。")
     parser.add_argument("--on-failure", dest="on_failure", help="失败/REJECT/REVISION 时回到哪里。")
     parser.add_argument("--updated-by", dest="updated_by", required=True, help="谁执行了这次更新（Actor 名）。")
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="跳过 Stage 迁移合法性校验（仅用于修正历史记录，不用于正常生产流程）。",
+    )
     args = parser.parse_args()
 
     path = position_path(args.id)
@@ -93,6 +111,24 @@ def main() -> None:
         raise SystemExit(f"{path} 中没有找到 '## {args.line} Line' 区块。")
 
     fields = parse_fields(sections[args.line])
+
+    if args.stage and not args.force:
+        current_stage = fields.get("Current Stage")
+        if current_stage is None:
+            raise SystemExit(
+                f"{args.line} Line 当前没有 Current Stage 字段（可能已 Enabled: NO），"
+                "无法判断迁移是否合法。如确认要强制写入，加 --force。"
+            )
+        allowed = LEGAL_NEXT_STAGE.get(current_stage)
+        if allowed is None:
+            raise SystemExit(f"未知的 Current Stage：{current_stage}，无法校验迁移合法性。")
+        if args.stage not in allowed:
+            raise SystemExit(
+                f"非法迁移：{args.line} Line 当前 Stage 是 {current_stage}，"
+                f"不能直接跳到 {args.stage}。\n"
+                f"{current_stage} 允许迁移到：{sorted(allowed)}。\n"
+                "如确认这是历史修正而非正常生产流程，加 --force 跳过校验。"
+            )
 
     if args.enabled:
         fields["Enabled"] = args.enabled

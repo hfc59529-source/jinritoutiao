@@ -118,3 +118,4 @@ Transform is not Rewrite.
 - ACTOR_DEFINITION_V1.md
 - GOVERNANCE_PRINCIPLES_V1.md
 - TRANSFORM_STANDARD_V1.md
+- SYSTEM_RULES.md（Production Modes 执行层规范，见 TRANSFORM_STANDARD_V1.md 的 Production Modes 一节）

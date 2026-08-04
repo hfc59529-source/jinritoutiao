@@ -1,5 +1,23 @@
 # 雷达双生产线 v1
 
+## 层级归属
+
+本文件是 [`ARCHITECTURE_V1.md`](ARCHITECTURE_V1.md) 中 **Stage 2: Transform** 的执行层规范，归属关系：
+
+```text
+Architecture（ARCHITECTURE_V1.md）
+        ↓
+Stage: Transform（STAGE_DEFINITION_V1.md / TRANSFORM_STANDARD_V1.md）
+        ↓
+本文件：SYSTEM_RULES.md（雷达双生产线 v1 —— A/B 生产模式、Shared 参数、六项拆解的具体规则）
+        ↓
+Scripts（scripts/daily_radar_run.py 等）
+        ↓
+Runtime（data/、outputs/、prompts/generated/ 下的真实产物）
+```
+
+本文件不是与 `*_V1.md` 系列并行的另一套系统，A/B 生产模式、Shared 参数、六项拆解都归位于 Transform Stage 内部，不作为独立 Stage 或独立系统存在。
+
 ## 定义
 
 同一个雷达选题生产两篇今日头条文案：

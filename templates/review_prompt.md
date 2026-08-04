@@ -54,6 +54,10 @@ Review 禁止：
 
 - 审核对象：{{DRAFT_PATH}}
 - Review Decision：PASS / REVISION / REJECT
+- Selected Title：
+  - PASS 时：必须从候选标题中选定一个，写明选择理由
+  - REVISION 时：说明标题是否也需要修改，暂不选定
+  - REJECT 时：留空
 
 ## 逐项审核
 
@@ -68,10 +72,6 @@ Review 禁止：
 | 传播能力 |  |  |
 | 个案是否被扩大为普遍规则 |  |  |
 | 可能性是否被写成必然性 |  |  |
-
-## 标题选定
-
-最终使用：标题N（原因）
 
 ## 必须修改的具体位置（REVISION 时填写）
 

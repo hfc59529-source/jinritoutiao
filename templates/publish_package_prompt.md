@@ -7,7 +7,7 @@
 ## 输入
 
 - Review PASS 的正文（Article Master 最终稿）
-- Review Decision 中选定的最终标题
+- Review Decision 中的 Selected Title 字段（唯一合法标题来源，不接受自行重选或新造标题）
 - 平台发布要求
 
 ## 边界

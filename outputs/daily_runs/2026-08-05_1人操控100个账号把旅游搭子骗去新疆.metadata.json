@@ -1,0 +1,56 @@
+{
+  "id": "2026-08-05_1人操控100个账号把旅游搭子骗去新疆",
+  "title": "1人操控100个账号把旅游搭子骗去新疆",
+  "hotspot_type": "大众民生",
+  "source_date": "2026-08-05",
+  "original_link": "https://www.soloapi.cn/",
+  "original_type": "soloapi雷达文案详情",
+  "selection_card": "/Users/huangsheng/Documents/今日头条/data/radar_selection/2026-08-05_1人操控100个账号把旅游搭子骗去新疆_3e7fbbbc.selection.md",
+  "status": "frozen",
+  "paths": {
+    "source": "/Users/huangsheng/Documents/今日头条/data/radar_sources/2026-08-05_1人操控100个账号把旅游搭子骗去新疆.md",
+    "shared_params": "/Users/huangsheng/Documents/今日头条/outputs/daily_runs/2026-08-05_1人操控100个账号把旅游搭子骗去新疆.shared_params.md",
+    "line_a_params": "/Users/huangsheng/Documents/今日头条/outputs/daily_runs/2026-08-05_1人操控100个账号把旅游搭子骗去新疆.A_params.md",
+    "line_b_params": "/Users/huangsheng/Documents/今日头条/outputs/daily_runs/2026-08-05_1人操控100个账号把旅游搭子骗去新疆.B_params.md",
+    "simple_analysis": "/Users/huangsheng/Documents/今日头条/data/radar_analysis/2026-08-05_1人操控100个账号把旅游搭子骗去新疆.simple_analysis.md",
+    "line_a_prompt": "/Users/huangsheng/Documents/今日头条/prompts/generated/2026-08-05_1人操控100个账号把旅游搭子骗去新疆.A_radar_direct.prompt.md",
+    "line_b_prompt": "/Users/huangsheng/Documents/今日头条/prompts/generated/2026-08-05_1人操控100个账号把旅游搭子骗去新疆.B_protocol_generate.prompt.md",
+    "publish_schedule": "/Users/huangsheng/Documents/今日头条/outputs/daily_runs/2026-08-05_1人操控100个账号把旅游搭子骗去新疆.publish_schedule.md",
+    "metadata": "/Users/huangsheng/Documents/今日头条/outputs/daily_runs/2026-08-05_1人操控100个账号把旅游搭子骗去新疆.metadata.json",
+    "index": "/Users/huangsheng/Documents/今日头条/outputs/daily_runs/2026-08-05_1人操控100个账号把旅游搭子骗去新疆.index.md"
+  },
+  "parameter_layers": {
+    "radar_selection": "爆点文案筛选卡",
+    "plain_text": "雷达原文",
+    "shared": "公共参数",
+    "line_a": "A线专属参数",
+    "line_b": "B线专属参数",
+    "output": "生成文案"
+  },
+  "production_lines": {
+    "A": "Radar Direct",
+    "B": "Protocol Generate"
+  },
+  "simple_analysis_fields": [
+    "开头方式",
+    "结构顺序",
+    "冲突位置",
+    "普通人代入方式",
+    "情绪推进",
+    "评论入口"
+  ],
+  "metrics_fields": [
+    "原始选题ID",
+    "生产方式",
+    "标题",
+    "发布时间",
+    "阅读量",
+    "点赞",
+    "评论",
+    "收益"
+  ],
+  "publish_rule": {
+    "sequence": "A稿 -> 插入一个其他选题 -> B稿",
+    "interval": "每篇间隔约2小时"
+  }
+}

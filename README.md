@@ -1,3 +1,28 @@
+# Today Toutiao System
+
+## Module Status
+
+| Module | Version | Status |
+| --- | --- | --- |
+| Collect | V1 | FROZEN |
+| Transform | V1 | FROZEN |
+| Review | V1 | FROZEN |
+| Revision | V1 | DRAFT |
+| Publish | V1 | DRAFT |
+| Feedback | V1 | DRAFT |
+
+Status lifecycle:
+
+```text
+DRAFT
+↓
+REVIEW
+↓
+FROZEN
+↓
+ACTIVE
+```
+
 # 采集老师爆点文案系统
 
 正式方向：建立“雷达双生产线”。

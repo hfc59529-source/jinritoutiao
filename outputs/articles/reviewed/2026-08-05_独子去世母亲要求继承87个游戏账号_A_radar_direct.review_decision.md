@@ -46,7 +46,7 @@ A 稿整体保留了终审结构和传播骨架，但加入了权威输入中未
 # 第二轮 Review Decision（依据 templates/review_prompt.md）
 
 - 审核对象：`outputs/articles/draft/2026-08-05_独子去世母亲要求继承87个游戏账号_A_radar_direct.revised.md`
-- Review Actor：Claude（真实会话，非本仓库脚本生成）
+- Review Actor：GPT（真实会话，非本仓库脚本生成）
 - 审核日期：2026-08-05
 - 固定输入：完整事实素材（`data/radar_sources/2026-08-05_独子去世母亲要求继承87个游戏账号.md`）+ 权威终审结构（同文件“二、终审批准的短视频结构”）+ 待审核正文（本轮 revised 稿）
 

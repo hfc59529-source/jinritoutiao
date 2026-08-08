@@ -19,10 +19,10 @@
   },
   "parameter_layers": {
     "radar_selection": "爆点文案筛选卡",
-    "radar_source": "冻结完整雷达原文",
-    "shared": "Shared 七项",
-    "transform": "Transform 参数与 Prompt",
-    "output": "Article Master"
+    "radar_source": "冻结完整雷达原文（含 Original Radar Production Prompt）",
+    "transform": "Execution Adapter：Target Format Contract + Fact Boundary",
+    "output": "Article Draft",
+    "shared": "Shared 七项（Quality Review 参照清单，不参与生成）"
   },
   "metrics_fields": [
     "原始选题ID",
@@ -36,6 +36,7 @@
   ],
   "production_rule": {
     "priority": "P1/P2/P3 只决定生产优先级，不决定生成篇数。",
-    "transform": "雷达详情是事实/结构第一依据；保留核心冲突和推进逻辑，不机械照抄原句。"
+    "transform": "直接执行 Original Radar Production Prompt，Transform 只提供 Target Format Contract 和 Fact Boundary 两个执行适配约束，不重新指导怎么写。",
+    "review": "Fact Boundary Review 与 Quality Review 两轮独立审核，不能合并。"
   }
 }

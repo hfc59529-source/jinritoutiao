@@ -30,6 +30,12 @@ ACTIVE
 ```text
 老师网站爆点文案池
         ↓
+List Scan
+        ↓
+Pre-Filter
+        ↓
+Detail Fetch
+        ↓
 爆点文案筛选卡
         ↓
 今日入选文案
@@ -74,7 +80,22 @@ Shared 七项用于保证 Article Master 继承同题、同事实、同核心冲
 ## 爆点文案筛选层
 
 筛选对象是老师网站已经生成完成的爆点文案，不是原始热点。
-筛选前必须先把文案雷达完整原文保存到 `data/radar_pool/`。
+
+Collect 内部先做轻筛：
+
+```text
+List Scan
+  ↓
+Pre-Filter
+  ↓
+Detail Fetch
+```
+
+Pre-Filter = Acquisition Decision（采集决策），只回答“这条是否值得花一次详情采集成本”。它只看标题、榜单位置、列表评分/标签、来源日期等廉价信息，只输出 FETCH / SKIP / REVIEW，不输出 P1 / P2 / P3。
+
+Pre-Filter 只做明显淘汰：标题本身看不出大众相关性、没有明确冲突/利益/风险信号、或热点明显不新鲜时才 SKIP；不确定时不能淘汰。
+
+Detail Fetch 后，必须先把文案雷达完整原文保存到 `data/radar_pool/`，才能进入 Selection V2。
 
 `data/radar_pool/` 必须只保存真实来源内容：从老师爆款文案网站采集/导出的完整原文，或用户明确粘贴并确认来自该网站的完整原文。禁止为了测试流程自行编造选题、评分、来源标签或伪造“今日爆点”来源；没有真实原文时，只能停在“等待采集”状态。
 

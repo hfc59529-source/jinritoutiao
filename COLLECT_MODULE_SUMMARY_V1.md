@@ -44,7 +44,12 @@ Ready for Transform
 
 Collect defines what can enter the system.
 
-Collect does not define how source material is collected.
+Collect uses two internal actions, not new stages:
+
+- List Scan + Pre-Filter：Acquisition Decision（是否值得抓详情）
+- Detail Fetch：抓取并保存完整雷达详情
+
+Pre-Filter only uses cheap list-page information and must not output P1 / P2 / P3. Formal publication priority belongs to Selection V2 after Detail Fetch.
 
 ## Collection Priority
 

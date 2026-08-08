@@ -122,6 +122,57 @@ Collect in this order:
 
 Do not collect other sections in V1. The teacher site no longer provides 官方扶持 as a production source.
 
+## Collect Actions
+
+Collect contains two internal actions. These are not new stages:
+
+```text
+List Scan
+  ↓
+Pre-Filter
+  ↓
+Detail Fetch
+```
+
+### List Scan
+
+List Scan reads only cheap list-page information:
+
+- Title（标题）
+- Rank / Pool Position（榜单位置）
+- List Score / Label（列表评分或标签）
+- Source Date（来源日期）
+
+### Pre-Filter
+
+Pre-Filter is an Acquisition Decision（采集决策）. It only answers:
+
+> Is this list item worth one detail fetch?
+
+Pre-Filter must not output P1 / P2 / P3 and must not replace Selection.
+
+Use only three cheap signals:
+
+1. 标题本身能否看出大众相关性？
+2. 是否存在明确冲突 / 利益 / 风险信号？
+3. 热点是否仍然新鲜？
+
+Decision rules:
+
+- FETCH：三项廉价信号均通过。
+- SKIP：标题/列表廉价信息已出现明确淘汰信号。
+- REVIEW：信息不足或不确定。
+
+Discipline:
+
+- SKIP only obvious rejects.
+- Unknown does not eliminate.
+- Detail Fetch Rate = detail_fetch_count / list_scan_count.
+
+### Detail Fetch
+
+Only FETCH / REVIEW candidates should spend detail-fetch cost. Detail Fetch must save the complete radar/detail content before the topic can enter Selection V2.
+
 ## Collection Intake
 
 When source material is entered into the system, include:

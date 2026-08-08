@@ -51,6 +51,12 @@ Feedback
 ```text
 老师网站爆点文案池
         ↓
+List Scan
+        ↓
+Pre-Filter
+        ↓
+Detail Fetch
+        ↓
 爆点文案筛选卡 radar_selection
         ↓
 今日入选文案
@@ -65,6 +71,23 @@ Article Master
 ```
 
 筛选对象不是原始热点，而是成品爆点文案。默认老师网站产出的文案已经合格，这里只判断它是否值得占用当天头条发布位。
+
+### Collect 内部动作
+
+Collect 内部允许拆成两个动作，但不新增 Stage：
+
+- List Scan + Pre-Filter：Acquisition Decision（是否值得花一次详情采集成本）
+- Detail Fetch：抓取并保存完整雷达详情
+
+Pre-Filter 只读取标题、榜单位置、列表评分/标签、来源日期等廉价信息，只问三个问题：
+
+1. 标题本身能否看出大众相关性？
+2. 是否存在明确冲突 / 利益 / 风险信号？
+3. 热点是否仍然新鲜？
+
+Pre-Filter 只输出 FETCH / SKIP / REVIEW，不允许输出 P1 / P2 / P3。SKIP 只用于明显淘汰；不确定时必须保留为 REVIEW 或 FETCH，不能提前杀掉潜在素材。
+
+Detail Fetch Rate = 抓取详情数 / 扫描标题数。该指标只衡量 Collect Efficiency（采集效率），不参与 Selection 排名。
 
 硬性规则：筛选前必须先保存文案雷达完整原文到 `data/radar_pool/`。筛选卡、Shared 和生产包都必须引用这份已保存原文，不能只保存摘要或筛选结果。
 

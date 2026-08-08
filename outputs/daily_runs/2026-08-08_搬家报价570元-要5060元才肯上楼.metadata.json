@@ -1,0 +1,41 @@
+{
+  "id": "2026-08-08_搬家报价570元-要5060元才肯上楼",
+  "title": "搬家报价570元 要5060元才肯上楼",
+  "hotspot_type": "消费维权",
+  "source_date": "2026-08-08",
+  "original_link": "",
+  "original_type": "雷达文案",
+  "selection_card": "data/radar_selection/2026-08-08_搬家报价570元-要5060元才肯上楼_f1c9769f.selection.md",
+  "status": "frozen",
+  "production_method": "Radar Source",
+  "paths": {
+    "source": "/Users/huangsheng/Documents/今日头条/jinritoutiao/data/radar_sources/2026-08-08_搬家报价570元-要5060元才肯上楼.md",
+    "shared_params": "/Users/huangsheng/Documents/今日头条/jinritoutiao/outputs/daily_runs/2026-08-08_搬家报价570元-要5060元才肯上楼.shared_params.md",
+    "transform_params": "/Users/huangsheng/Documents/今日头条/jinritoutiao/outputs/daily_runs/2026-08-08_搬家报价570元-要5060元才肯上楼.transform_params.md",
+    "transform_prompt": "/Users/huangsheng/Documents/今日头条/jinritoutiao/prompts/generated/2026-08-08_搬家报价570元-要5060元才肯上楼.transform.prompt.md",
+    "metadata": "/Users/huangsheng/Documents/今日头条/jinritoutiao/outputs/daily_runs/2026-08-08_搬家报价570元-要5060元才肯上楼.metadata.json",
+    "index": "/Users/huangsheng/Documents/今日头条/jinritoutiao/outputs/daily_runs/2026-08-08_搬家报价570元-要5060元才肯上楼.index.md",
+    "position": "/Users/huangsheng/Documents/今日头条/jinritoutiao/outputs/daily_runs/2026-08-08_搬家报价570元-要5060元才肯上楼.position.md"
+  },
+  "parameter_layers": {
+    "radar_selection": "爆点文案筛选卡",
+    "radar_source": "冻结完整雷达原文",
+    "shared": "Shared 七项",
+    "transform": "Transform 参数与 Prompt",
+    "output": "Article Master"
+  },
+  "metrics_fields": [
+    "原始选题ID",
+    "生产方式",
+    "标题",
+    "发布时间",
+    "阅读量",
+    "点赞",
+    "评论",
+    "收益"
+  ],
+  "production_rule": {
+    "priority": "P1/P2/P3 只决定生产优先级，不决定生成篇数。",
+    "transform": "雷达详情是事实/结构第一依据；保留核心冲突和推进逻辑，不机械照抄原句。"
+  }
+}

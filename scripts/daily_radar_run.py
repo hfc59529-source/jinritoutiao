@@ -16,6 +16,16 @@ PRODUCTION_LINES = {
 }
 
 
+def require_today_source_date(source_date: str) -> None:
+    today = dt.date.today().isoformat()
+    if source_date != today:
+        raise SystemExit(
+            f"--source-date must be today's date ({today}). "
+            "Only same-day collected topics may enter the daily production run. "
+            "If there is no same-day topic, collect a new one from the teacher site first."
+        )
+
+
 def slugify(text: str) -> str:
     cleaned = re.sub(r"[^\w\u4e00-\u9fff]+", "-", text.strip())
     cleaned = cleaned.strip("-")
@@ -325,6 +335,7 @@ def main() -> None:
         help="P2/P3：只走 A 线，B 线在位置台账中标记 Enabled: NO。默认双线（P1）。",
     )
     args = parser.parse_args()
+    require_today_source_date(args.source_date)
 
     source_path, raw_content = read_text(args.source)
     _, facts_content = read_text(args.facts_file) if args.facts_file else (Path(), "")

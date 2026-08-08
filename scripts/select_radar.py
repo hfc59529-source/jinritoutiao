@@ -16,6 +16,16 @@ DUAL_VALUES = {"YES", "NO"}
 PRIORITIES = {"P1", "P2", "P3", "不发"}
 
 
+def require_today_source_date(source_date: str) -> None:
+    today = dt.date.today().isoformat()
+    if source_date != today:
+        raise SystemExit(
+            f"--source-date must be today's date ({today}). "
+            "Only same-day collected topics may be selected. "
+            "If there is no same-day topic, collect a new one from the teacher site first."
+        )
+
+
 def slugify(text: str) -> str:
     cleaned = re.sub(r"[^\w\u4e00-\u9fff]+", "-", text.strip()).strip("-")
     return cleaned[:60] or "radar"
@@ -152,6 +162,7 @@ def main() -> None:
         raise SystemExit("--viral-score must be between 0 and 100")
     if not 0 <= args.support_score <= 100:
         raise SystemExit("--support-score must be between 0 and 100")
+    require_today_source_date(args.source_date)
 
     source_path, content = read_source(args.source)
     digest = hashlib.sha1(content.encode("utf-8")).hexdigest()[:8]

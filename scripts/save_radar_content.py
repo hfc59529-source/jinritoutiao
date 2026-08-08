@@ -12,6 +12,16 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def require_today_source_date(source_date: str) -> None:
+    today = dt.date.today().isoformat()
+    if source_date != today:
+        raise SystemExit(
+            f"--source-date must be today's date ({today}). "
+            "Only same-day collected topics may enter production. "
+            "If there is no same-day topic, collect a new one from the teacher site first."
+        )
+
+
 def slugify(text: str) -> str:
     cleaned = re.sub(r"[^\w\u4e00-\u9fff]+", "-", text.strip()).strip("-")
     return cleaned[:60] or "radar"
@@ -103,6 +113,7 @@ def main() -> None:
     parser.add_argument("--source-url", default="")
     parser.add_argument("--source-label", default="")
     args = parser.parse_args()
+    require_today_source_date(args.source_date)
 
     _, content = read_source(args.source)
     content_hash = hashlib.sha1(content.encode("utf-8")).hexdigest()[:12]

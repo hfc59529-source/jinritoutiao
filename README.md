@@ -25,7 +25,7 @@ ACTIVE
 
 # 采集老师爆点文案系统
 
-正式方向：建立“雷达双生产线”。
+正式方向：唯一 Production Line。
 
 ```text
 老师网站爆点文案池
@@ -34,12 +34,22 @@ ACTIVE
         ↓
 今日入选文案
         ↓
-Shared 参数
-   ├─ A线直转，负责直接生产和收益
-   └─ B线复刻，负责训练自有头条生产能力
+冻结完整雷达原文
+        ↓
+Shared 七项
+        ↓
+Transform
+        ↓
+Article Master
+        ↓
+Review
+        ↓
+Revision / Publish
+        ↓
+Feedback
 ```
 
-现阶段两条生产线各占 50%，所有规则仅用于今日头条，不调用知乎或其他平台规则。
+所有规则仅用于今日头条，不调用知乎或其他平台规则。
 
 ## 三层参数结构
 
@@ -52,14 +62,14 @@ Shared 参数
   ↓
 雷达原文
   ↓
-公共参数 Shared
-  ├─ A线专属参数
-  └─ B线专属参数
-      ↓
-生成文案
+Shared 七项
+  ↓
+Transform 参数
+  ↓
+Article Master
 ```
 
-公共参数用于保证 A/B 两稿同题、同事实、同核心冲突；线路专属参数用于控制两稿生产方式不同。
+Shared 七项用于保证 Article Master 继承同题、同事实、同核心冲突、同普通人代入、同风险成本和同评论入口。Transform 参数用于约束平台化表达：不机械照抄雷达原句，但不得改变事实与核心推进。
 
 ## 爆点文案筛选层
 
@@ -88,16 +98,15 @@ Shared 参数
 - 评论空间：高 / 中 / 低
 - 热点剩余时效：长 / 中 / 短
 - 今日爆款评分：0-100
-- 双线生产适配：YES / NO
 - 今日优先级：P1 / P2 / P3 / 不发
 - 来源标签
 - 入选理由
 
 优先级规则：
 
-- P1：当天必须优先发，进入 A稿 -> 其他题 -> B稿
-- P2：可以发，但只发一篇，只走 A线
-- P3：有空位再发
+- P1：优先生产
+- P2：可以生产
+- P3：有空位再生产
 - 不发：暂不进入生产
 
 评分处理：
@@ -112,76 +121,34 @@ Shared 参数
 2. 保存文案雷达完整原文，原文不改写。
 3. 生成爆点文案筛选卡，筛选卡必须引用已保存的雷达内容文件，判断 P1 / P2 / P3 / 不发。
 4. 今日入选文案进入原文库，原文永久冻结。
-5. 提取公共参数 Shared：原始事实、核心冲突、核心利益、目标人群、普通人代入、风险或成本、评论入口。
-6. A线直转：使用“公共参数 + A线专属参数”，只调整标题、篇幅、排版和头条表达。
-7. 简单拆解：只拆开头方式、结构顺序、冲突位置、普通人代入方式、情绪推进、评论入口。
-8. B线复刻：P1 使用“公共参数 + B线专属参数 + 六项拆解”生成，P2 不走 B线。
-9. 发布排期：同一选题两篇不要连续发布，按“A稿 -> 其他选题 -> B稿”，每篇间隔约 2 小时。
-10. 数据记录：每篇只记录原始选题ID、生产方式、标题、发布时间、阅读量、点赞、评论、收益。
+5. 提取 Shared 七项：原始事实、核心冲突、核心利益、目标人群、普通人代入、风险或成本、评论入口。
+6. Transform：使用“雷达原文 + Shared 七项 + Transform 参数”生成 Article Master。
+7. Review 后进入 Revision 或 Publish。
+8. 发布后进入 Feedback，并与 Baseline 对照。
 
-## A线｜雷达直转
+## Transform｜Radar Source
 
 输入：
 
 - 雷达/文案详情
 - 原始事实
+- Shared 七项
 
 要求：
 
-- A线生产依据必须是 soloapi.cn 目标选题详情页里的“雷达/文案”内容
+- Transform 生产依据必须是 soloapi.cn 目标选题详情页里的“雷达/文案”内容
 - 列表卡片、筛选卡和 Shared 参数只能作为辅助校验，不能替代“雷达/文案”详情
 - 保留雷达/文案详情里的终审结构、核心冲突、结构顺序、普通人代入和评论入口
-- 只调整标题、篇幅、排版和头条表达
-- 输出可直接发布的头条文案
-
-## B线｜协议复刻
-
-输入：
-
-- 同一个选题和事实
-- 对雷达原文的结构拆解结果
-
-要求：
-
 - 不照抄原句
-- 按拆出的结构、节奏、表达动作重新生成一篇头条文案
-- 标题和正文表达必须与 A 稿明显不同
-
-## 六项拆解
-
-每篇雷达原文只拆以下六项：
-
-- 开头方式
-- 结构顺序
-- 冲突位置
-- 普通人代入方式
-- 情绪推进
-- 评论入口
-
-不要做复杂评分，不要建立多级参数树。
-
-## 发布规则
-
-同一选题的两篇文案不要连续发布。
-
-建议顺序：
-
-```text
-A稿
-↓
-插入一个其他选题
-↓
-B稿
-```
-
-每篇间隔约 2 小时。
+- 允许重新组织句式、标题、篇幅、排版和头条表达
+- 输出 Article Master
 
 ## 数据字段
 
 每篇只记录：
 
 - 原始选题ID
-- 生产方式：Radar Direct / Protocol Generate
+- 生产方式：Radar Source
 - 标题
 - 发布时间
 - 阅读量
@@ -234,7 +201,6 @@ data/
   radar_pool/     老师网站爆点文案池，保存文案雷达完整原文
   radar_selection/爆点文案筛选卡
   radar_sources/  雷达原文库，永久冻结
-  radar_analysis/ 六项拆解
   radar_rules/    预留，现阶段不扩展复杂规律库
   metrics/        发布后数据
 prompts/
@@ -246,8 +212,8 @@ outputs/
     reviewed/     人工审核稿
     published/    已发布稿
   reports/        复盘报告
-  daily_runs/     每日双轨运行包
-                 其中包含 Shared、A线参数、B线参数和发布顺序
+  daily_runs/     每日生产运行包
+                 其中包含 Shared、Transform 参数、metadata、index、position
 database/         后续 SQLite 数据库
 notion/
   sync_logs/      Notion 同步记录
@@ -262,7 +228,7 @@ python3 scripts/collect_radar.py data/raw/sample_radar.md
 python3 scripts/generate_prompt.py data/radar/sample_radar.collected.md
 ```
 
-## 雷达双生产线命令
+## 雷达生产命令
 
 先保存雷达文案原文：
 
@@ -290,12 +256,11 @@ python3 scripts/select_radar.py data/radar_pool/保存后的雷达文件.radar.m
   --time-window 长 \
   --viral-score 92 \
   --source-label "确认S+·92分；素材质量78·可用" \
-  --dual-line-fit YES \
   --priority P1 \
-  --reason "账号适配高，普通人相关度高，适合A/B双线错峰发布"
+  --reason "账号适配高，普通人相关度高，适合优先生产"
 ```
 
-入选后再进入双生产线：
+入选后进入生产主链：
 
 ```bash
 python3 scripts/daily_radar_run.py data/raw/sample_radar.md \

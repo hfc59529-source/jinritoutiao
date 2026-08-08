@@ -129,18 +129,23 @@ Unless the system explicitly authorizes it, Claude must not actively:
 - 删除观点
 - 调整结构
 
-## Production Modes（生产模式）
+## Production Method（生产方法）
 
-Transform 内部包含两种生产模式，统称"雷达双生产线"：
+Transform 内部使用唯一生产方法：**Radar Source**。
 
-- **A 线（Radar Direct，雷达直转）**：直接生产与收益。
-- **B 线（Protocol Generate，协议复刻）**：训练自有头条生产能力。
+Radar Source 以 soloapi.cn 目标选题详情页里的“雷达/文案”内容为事实和结构第一依据，完整继承 **Shared 七项**：
 
-两条线共用同一份 **Shared 参数**（公共输入层：原始事实、核心冲突、核心利益、目标人群、普通人代入、风险或成本、评论入口），再各自叠加线路专属参数。
+- 原始事实
+- 核心冲突
+- 核心利益
+- 目标人群
+- 普通人代入
+- 风险或成本
+- 评论入口
 
-**六项拆解**（开头方式 / 结构顺序 / 冲突位置 / 普通人代入方式 / 情绪推进 / 评论入口）仅服务 B 线，用于约束"协议复刻"的结构重生成，不用于 A 线。
+Transform 保留雷达已经确认的结构、节奏、核心冲突和表达动作；不机械照抄雷达原句；允许为今日头条重新组织句式和表达，但不得改变事实与核心推进。
 
-A/B 生产模式、Shared 参数、六项拆解的完整规则定义在 [`SYSTEM_RULES.md`](SYSTEM_RULES.md)（雷达双生产线 v1），该文件是 Transform Stage 的执行层规范，与本文件（Transform 的边界与零优化原则）是同一 Stage 内的两份互补文档，不是并行或竞争的规范。
+Radar Source、Shared 七项和 Transform 参数的完整规则定义在 [`SYSTEM_RULES.md`](SYSTEM_RULES.md)（雷达生产主链 v1），该文件是 Transform Stage 的执行层规范，与本文件（Transform 的边界与零优化原则）是同一 Stage 内的两份互补文档，不是并行或竞争的规范。
 
 ## Transform Action Model
 

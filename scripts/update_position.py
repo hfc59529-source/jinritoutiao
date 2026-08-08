@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""更新 outputs/daily_runs/{id}.position.md 中某条生产线的位置台账。
+"""更新 outputs/daily_runs/{id}.position.md 中生产位置台账。
 
 只负责改写已有字段，不新建选题、不新建 Stage/State 名词。
 Stage/State 取值必须来自 STAGE_DEFINITION_V1.md / STATE_DEFINITION_V1.md，
 Current Actor 取该 Stage 在 ACTOR_DEFINITION_V1.md 中的 Primary Owner。
+
+新台账使用单一 `## Production` 区块；历史 A/B 台账仍可通过 --line A/B 更新。
 """
 from __future__ import annotations
 
@@ -51,14 +53,22 @@ def position_path(source_id: str) -> Path:
 
 
 def parse_sections(text: str) -> dict[str, str]:
-    """按 '## A Line' / '## B Line' 标题切出两个区块（含标题行）。"""
-    parts = re.split(r"(?=^## [AB] Line$)", text, flags=re.MULTILINE)
+    """按新 `## Production` 或历史 `## A/B Line` 标题切出区块。"""
+    parts = re.split(r"(?=^## (?:Production|[AB] Line)$)", text, flags=re.MULTILINE)
     sections: dict[str, str] = {}
     for part in parts:
-        m = re.match(r"^## ([AB]) Line$", part.strip().splitlines()[0]) if part.strip() else None
+        if not part.strip():
+            continue
+        first = part.strip().splitlines()[0]
+        if first == "## Production":
+            sections["Production"] = part
+            continue
+        m = re.match(r"^## ([AB]) Line$", first)
         if m:
             sections[m.group(1)] = part
-    return {"__prefix__": parts[0] if not re.match(r"^## [AB] Line$", parts[0].strip().splitlines()[0] if parts[0].strip() else "") else "", **sections}
+    first_part = parts[0].strip().splitlines()[0] if parts and parts[0].strip() else ""
+    prefix = "" if re.match(r"^## (?:Production|[AB] Line)$", first_part) else parts[0]
+    return {"__prefix__": prefix, **sections}
 
 
 def parse_fields(section: str) -> dict[str, str]:
@@ -71,7 +81,8 @@ def parse_fields(section: str) -> dict[str, str]:
 
 
 def render_section(line: str, fields: dict[str, str]) -> str:
-    lines = [f"## {line} Line", ""]
+    heading = "## Production" if line == "Production" else f"## {line} Line"
+    lines = [heading, ""]
     for key in FIELD_ORDER:
         if key in fields:
             lines.append(f"- {key}: {fields[key]}")
@@ -79,10 +90,10 @@ def render_section(line: str, fields: dict[str, str]) -> str:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="更新单条生产线在 {id}.position.md 中的当前位置。")
+    parser = argparse.ArgumentParser(description="更新 {id}.position.md 中的当前位置。")
     parser.add_argument("--id", required=True, help="选题 ID（与 daily_radar_run.py 的 source_id 一致）。")
-    parser.add_argument("--line", required=True, choices=["A", "B"])
-    parser.add_argument("--enabled", choices=["YES", "NO"], help="仅在需要切换 B 线开关时传入。")
+    parser.add_argument("--line", default="Production", choices=["Production", "A", "B"])
+    parser.add_argument("--enabled", choices=["YES", "NO"], help="仅在需要切换生产区块开关时传入。")
     parser.add_argument("--stage", help="Stage 取值需与 STAGE_DEFINITION_V1.md 一致，如 Review。")
     parser.add_argument("--state", help="State 取值需与 STATE_DEFINITION_V1.md 一致，如 Reviewing。")
     parser.add_argument("--deliverable", help="当前交付物路径。")
@@ -108,7 +119,8 @@ def main() -> None:
     text = path.read_text(encoding="utf-8")
     sections = parse_sections(text)
     if args.line not in sections:
-        raise SystemExit(f"{path} 中没有找到 '## {args.line} Line' 区块。")
+        heading = "## Production" if args.line == "Production" else f"## {args.line} Line"
+        raise SystemExit(f"{path} 中没有找到 '{heading}' 区块。")
 
     fields = parse_fields(sections[args.line])
 
@@ -152,16 +164,17 @@ def main() -> None:
         now = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         fields["Last Updated"] = f"{now} by {args.updated_by}"
 
+    prefix = sections.get("__prefix__", "")
     sections[args.line] = render_section(args.line, fields)
 
-    prefix = sections.get("__prefix__", "")
-    other_line = "B" if args.line == "A" else "A"
-    other_section = sections.get(other_line, f"## {other_line} Line\n\n- Enabled: NO\n")
-
-    if args.line == "A":
-        new_text = prefix.rstrip() + "\n\n" + sections["A"].rstrip() + "\n\n" + other_section.rstrip() + "\n"
+    if "Production" in sections:
+        new_text = prefix.rstrip() + "\n\n" + sections["Production"].rstrip() + "\n"
     else:
-        new_text = prefix.rstrip() + "\n\n" + other_section.rstrip() + "\n\n" + sections["B"].rstrip() + "\n"
+        ordered = []
+        for line in ("A", "B"):
+            if line in sections:
+                ordered.append(sections[line].rstrip())
+        new_text = prefix.rstrip() + "\n\n" + "\n\n".join(ordered) + "\n"
 
     path.write_text(new_text, encoding="utf-8")
     print(path)

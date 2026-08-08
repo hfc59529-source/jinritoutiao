@@ -12,7 +12,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 LEVELS = {"高", "中", "低"}
 TIME_WINDOWS = {"长", "中", "短"}
-DUAL_VALUES = {"YES", "NO"}
 PRIORITIES = {"P1", "P2", "P3", "不发"}
 
 
@@ -67,9 +66,8 @@ def build_card(args: argparse.Namespace, source_path: Path, copy_id: str) -> str
 | 冲突强度 | {args.conflict_strength} | 冲突是否集中、清楚、有讨论性 |
 | 利益或风险强度 | {args.benefit_risk_strength} | 是否有明确利益、损失、风险或成本 |
 | 评论空间 | {args.comment_space} | 是否容易引发评论和站队 |
-| 热点剩余时效 | {args.time_window} | 是否仍在发酵，是否能支撑 4-6 小时后的 B 稿 |
+| 热点剩余时效 | {args.time_window} | 是否仍在发酵，是否仍有生产窗口 |
 | 今日爆款评分 | {args.viral_score} | 老师网站/平台给出的今日爆款、确认S+、素材质量等分数 |
-| 双线生产适配 | {args.dual_line_fit} | 是否能生成 A/B 两篇明显不同文案 |
 
 ## 筛选结果
 
@@ -87,11 +85,11 @@ def build_card(args: argparse.Namespace, source_path: Path, copy_id: str) -> str
 
 def recommendation(priority: str) -> str:
     if priority == "P1":
-        return "进入 A稿 -> 其他题 -> B稿"
+        return "优先生产"
     if priority == "P2":
-        return "只走 A线"
+        return "可以生产"
     if priority == "P3":
-        return "有空位再发"
+        return "有空位再生产"
     return "暂不进入生产"
 
 
@@ -113,7 +111,6 @@ def append_log(args: argparse.Namespace, copy_id: str) -> None:
                 "评论空间",
                 "热点剩余时效",
                 "今日爆款评分",
-                "双线生产适配",
                 "今日优先级",
                 "来源标签",
                 "入选理由",
@@ -129,7 +126,6 @@ def append_log(args: argparse.Namespace, copy_id: str) -> None:
             args.comment_space,
             args.time_window,
             args.viral_score,
-            args.dual_line_fit,
             args.priority,
             args.source_label,
             args.reason,
@@ -137,7 +133,7 @@ def append_log(args: argparse.Namespace, copy_id: str) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Create a radar selection card before dual-line production.")
+    parser = argparse.ArgumentParser(description="Create a radar selection card before production.")
     parser.add_argument("source", help="Finished radar copy from teacher site.")
     parser.add_argument("--title", required=True)
     parser.add_argument("--hotspot-type", required=True)
@@ -150,7 +146,6 @@ def main() -> None:
     parser.add_argument("--time-window", required=True, choices=sorted(TIME_WINDOWS))
     parser.add_argument("--viral-score", type=int, default=0, help="0-100 score for today's viral potential.")
     parser.add_argument("--source-label", default="", help="Original platform label, e.g. 素材质量78·可用 or S+·92分.")
-    parser.add_argument("--dual-line-fit", required=True, choices=sorted(DUAL_VALUES))
     parser.add_argument("--priority", required=True, choices=sorted(PRIORITIES))
     parser.add_argument("--reason", required=True)
     args = parser.parse_args()

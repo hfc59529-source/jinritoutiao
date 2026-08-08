@@ -43,6 +43,41 @@
 
 生成之后会有独立的 Fact Boundary Review 逐句核对，不要依赖自己"读起来合理"的判断替代这道检查。
 
+### Approved Intent Authority
+
+Radar 中"终审批准的短视频结构"所明确给出的以下内容，属于 Approved Judgments：
+
+- 主切口
+- 核心冲突
+- 普通人代入 / Stakes
+- 评论问题
+
+这些 Approved Judgments 是必须继承的内容约束，而不是仅供参考的素材。
+
+你必须保留每项 Approved Judgment 的原意。判断是否保留原意，以三个要素为准：
+
+1. 判断对象不变：原判断在说谁、什么行为或什么问题，不得替换。
+2. 判断结论不变：原判断最终要表达什么，不得删除或改成另一个结论。
+3. 判断强度不变：如"涉嫌""可能""存疑""缺失"等限定程度必须保留，不得弱化，也不得强化为更确定的结论。
+
+禁止：
+- 删除 Approved Judgment；
+- 用更模糊的情绪、概括或其他判断替代 Approved Judgment；
+- 弱化或强化 Approved Judgment 的判断强度；
+- 改变 Approved Judgment 的判断对象或结论；
+- 新增 Radar 未批准的核心判断。
+
+允许：
+- 不照抄原句，在对象、结论和判断强度不变的前提下进行同义改写；
+- 使用 Radar 已确认的事实解释、展开或支撑 Approved Judgment；
+- 对信息进行压缩，但压缩后仍必须让 Approved Judgment 的对象、结论和判断强度可识别；
+- 在不改变现行 Narrative Spine 节点顺序约束的前提下，对句子、段落和判断的表达位置进行组织。
+
+Approved Judgment 的"原意必须保留"不等于"原句必须保留"。
+
+当表达自由与 Approved Judgment 冲突时：
+保留 Approved Judgment 的对象、结论和判断强度；在这个边界内自由完成表达。
+
 ## 边界（Article Draft 唯一职责）
 
 Article Draft = 标题候选 + 唯一正文。

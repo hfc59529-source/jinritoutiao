@@ -211,7 +211,7 @@ Transform 参数用于约束平台化表达：
 - 列表卡片、筛选卡和 Shared 参数只能作为辅助校验，不能替代“雷达/文案”详情。
 - 保留雷达/文案详情里的终审结构、核心冲突、结构顺序、普通人代入和评论入口。
 - 不机械照抄原句。
-- 允许重新组织句式、标题、篇幅、排版和头条表达；篇幅调整受 [Frozen Output Constraints](TRANSFORM_STANDARD_V1.md#frozen-output-constraints) 约束：先判断雷达给出的 Source Format 与目标今日头条图文的 Target Format 是否一致——一致时，雷达标注的终审字数/段数原样继承；不一致（例如雷达给的是短视频口播规格）时，只继承内容层（事实/核心冲突/普通人代入/情绪推进/评论入口/段落逻辑顺序），不继承源格式的时长、字数区间和拍法要求，改为展开成完整的头条图文。
+- 允许重新组织句式、标题、篇幅、排版和头条表达；篇幅调整受 [Frozen Output Constraints](TRANSFORM_STANDARD_V1.md#frozen-output-constraints) 约束：先判断雷达给出的 Source Format 与目标今日头条图文的 Target Format 是否一致——一致时，雷达标注的终审字数/段数原样继承；不一致（例如雷达给的是短视频口播规格）时，只继承内容层的 Narrative Spine（叙事节点顺序：事实/核心冲突/普通人代入/情绪推进/评论入口），不继承源格式的时长、字数区间和拍法要求，按 [Target Format Contract](TRANSFORM_STANDARD_V1.md#target-format-contract今日头条图文) 展开成完整头条图文——一个叙事节点可以展开成多个自然段，正文段落数不等于源格式的节点数。
 - 不改变事实与核心推进。
 - 输出 Article Master。
 

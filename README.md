@@ -40,15 +40,17 @@ Detail Fetch
         ↓
 今日入选文案
         ↓
-冻结完整雷达原文
+冻结完整雷达原文（含 Original Radar Production Prompt）
         ↓
-Shared 七项
+Transform（Execution Adapter）
         ↓
-Transform
+Article Draft
+        ↓
+Fact Boundary Review
+        ↓
+Quality Review（参照 Shared 七项）
         ↓
 Article Master
-        ↓
-Review
         ↓
 Revision / Publish
         ↓
@@ -57,7 +59,7 @@ Feedback
 
 所有规则仅用于今日头条，不调用知乎或其他平台规则。
 
-## 三层参数结构
+## 生产结构
 
 ```text
 老师网站爆点文案池
@@ -66,16 +68,20 @@ Feedback
   ↓
 今日入选文案
   ↓
-雷达原文
+雷达原文（含 Original Radar Production Prompt）
   ↓
-Shared 七项
+Transform：Target Format Contract + Fact Boundary
   ↓
-Transform 参数
+Article Draft
+  ↓
+Fact Boundary Review（独立一轮，只判断事实边界）
+  ↓
+Quality Review（独立一轮，参照 Shared 七项判断覆盖与阅读质量）
   ↓
 Article Master
 ```
 
-Shared 七项用于保证 Article Master 继承同题、同事实、同核心冲突、同普通人代入、同风险成本和同评论入口。Transform 参数用于约束平台化表达：不机械照抄雷达原句，但不得改变事实与核心推进。
+Transform 不再用自己的一套规则重新指导"核心冲突怎么写、怎么推进、普通人怎么代入"——这些交给雷达详情里的 Original Radar Production Prompt 本身逐字执行。Transform 只负责两件事：Target Format Contract（输出成什么载体）、Fact Boundary（什么不能编）。Shared 七项不再是生成参数，降级为 Quality Review 阶段的参照清单，用来检查 Article Draft 有没有丢核心事实/核心冲突/核心利益/目标人群/普通人代入/风险成本/评论入口。
 
 ## 爆点文案筛选层
 
@@ -159,27 +165,26 @@ P1/P2/P3 不代表达到某个绝对分数线，只代表当天候选之间的�
 2. 保存文案雷达完整原文，原文不改写。
 3. 生成爆点文案筛选卡，筛选卡必须引用已保存的雷达内容文件，判断 P1 / P2 / P3 / 不发。
 4. 今日入选文案进入原文库，原文永久冻结。
-5. 提取 Shared 七项：原始事实、核心冲突、核心利益、目标人群、普通人代入、风险或成本、评论入口。
-6. Transform：使用“雷达原文 + Shared 七项 + Transform 参数”生成 Article Master。
-7. Review 后进入 Revision 或 Publish。
-8. 发布后进入 Feedback，并与 Baseline 对照。
+5. Transform：直接执行雷达详情里的 Original Radar Production Prompt，套用 Target Format Contract 和 Fact Boundary，生成 Article Draft。
+6. Fact Boundary Review：独立一轮，逐句核对 Article Draft 与雷达详情，只判断事实边界，不判断好不好看。
+7. Quality Review：Fact Boundary Review PASS 后进行，参照 Shared 七项检查覆盖是否完整，判断结构、传播能力、阅读体验。
+8. Review 后进入 Revision 或 Publish。
+9. 发布后进入 Feedback，并与 Baseline 对照。
 
 ## Transform｜Radar Source
 
 输入：
 
-- 雷达/文案详情
-- 原始事实
-- Shared 七项
+- Original Radar Production Prompt（雷达/文案详情原文，含创作任务单）
+- Target Format Contract
+- Fact Boundary
 
 要求：
 
-- Transform 生产依据必须是 soloapi.cn 目标选题详情页里的“雷达/文案”内容
-- 列表卡片、筛选卡和 Shared 参数只能作为辅助校验，不能替代“雷达/文案”详情
-- 保留雷达/文案详情里的终审结构、核心冲突、结构顺序、普通人代入和评论入口
-- 不照抄原句
-- 允许重新组织句式、标题、篇幅、排版和头条表达
-- 输出 Article Master
+- Transform 生产依据必须是 soloapi.cn 目标选题详情页里的"雷达/文案"内容，逐字执行创作任务单，不用自己的规则重新指导怎么写
+- 篇幅受 Frozen Output Constraints 约束：Source Format 与 Target Format 一致时原样继承终审字数/段数；不一致（如雷达给的是短视频规格）时只继承内容层的 Narrative Spine（叙事节点顺序），按 Target Format Contract 展开成完整头条图文
+- 受 Fact Boundary 约束：不得新增源材料未确认的具体人物行为、事件过程、时间地点、主观认知、因果关系、收费披露状态、具体运作机制、舆情/效果数据、确定性评价
+- 输出 Article Draft（未经审核，不是最终稿）
 
 ## 数据字段
 
@@ -199,8 +204,8 @@ P1/P2/P3 不代表达到某个绝对分数线，只代表当天候选之间的�
 允许修改：
 
 - 平台格式
-- 篇幅
-- 事实补充
+- 篇幅（受 Frozen Output Constraints 约束）
+- 表达方式（不改变事实与核心推进）
 
 禁止修改：
 
@@ -209,6 +214,13 @@ P1/P2/P3 不代表达到某个绝对分数线，只代表当天候选之间的�
 - 雷达/文案详情里的普通人代入逻辑
 - 雷达/文案详情里的利益与风险表达
 - 雷达/文案详情里的评论入口
+
+禁止新增（Fact Boundary）：
+
+- 源材料未确认的具体人物行为、事件过程、时间地点
+- 源材料未确认的主观认知、因果关系
+- 源材料未确认的收费/信息披露状态、具体运作机制
+- 源材料未确认的舆情/效果数据、确定性评价
 
 优先级：
 

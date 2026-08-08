@@ -84,13 +84,16 @@ def transform_params() -> str:
     return (ROOT / "templates" / "transform_params_template.md").read_text(encoding="utf-8")
 
 
-def transform_prompt(source_content: str, original_facts: str, shared_path: Path, transform_path: Path) -> str:
+def transform_prompt(source_content: str, original_facts: str) -> str:
+    """拼装 Transform Prompt（Execution Adapter）。
+
+    Shared 七项、Transform 参数不再拼入生成 Prompt——Shared 七项降级为 Quality
+    Review 参照清单，Transform 参数文件只作执行记录，两者都不参与生成指令。
+    """
     template = (ROOT / "templates" / "transform_radar_source_prompt.md").read_text(encoding="utf-8")
     return (
         template.replace("{{RADAR_ORIGINAL}}", source_content.rstrip())
         .replace("{{ORIGINAL_FACTS}}", original_facts.rstrip() or "同雷达原文")
-        .replace("{{SHARED_PARAMS}}", shared_path.read_text(encoding="utf-8").rstrip())
-        .replace("{{TRANSFORM_PARAMS}}", transform_path.read_text(encoding="utf-8").rstrip())
     )
 
 
@@ -108,10 +111,10 @@ def metadata(args: argparse.Namespace, source_id: str, paths: dict[str, Path]) -
         "paths": {key: str(value) for key, value in paths.items()},
         "parameter_layers": {
             "radar_selection": "爆点文案筛选卡",
-            "radar_source": "冻结完整雷达原文",
-            "shared": "Shared 七项",
-            "transform": "Transform 参数与 Prompt",
-            "output": "Article Master",
+            "radar_source": "冻结完整雷达原文（含 Original Radar Production Prompt）",
+            "transform": "Execution Adapter：Target Format Contract + Fact Boundary",
+            "output": "Article Draft",
+            "shared": "Shared 七项（Quality Review 参照清单，不参与生成）",
         },
         "metrics_fields": [
             "原始选题ID",
@@ -125,7 +128,8 @@ def metadata(args: argparse.Namespace, source_id: str, paths: dict[str, Path]) -
         ],
         "production_rule": {
             "priority": "P1/P2/P3 只决定生产优先级，不决定生成篇数。",
-            "transform": "雷达详情是事实/结构第一依据；保留核心冲突和推进逻辑，不机械照抄原句。",
+            "transform": "直接执行 Original Radar Production Prompt，Transform 只提供 Target Format Contract 和 Fact Boundary 两个执行适配约束，不重新指导怎么写。",
+            "review": "Fact Boundary Review 与 Quality Review 两轮独立审核，不能合并。",
         },
     }
     return json.dumps(data, ensure_ascii=False, indent=2)
@@ -149,8 +153,8 @@ Current Actor 取该 Stage 在 ACTOR_DEFINITION_V1.md 中的 Primary Owner。
 - Current State: Ready for Transform
 - Current Deliverable: {paths["transform_prompt"]}
 - Current Actor: Claude
-- Next Action: 根据 Transform Prompt 生成 Article Master，保存到 outputs/articles/draft/
-- On Failure: 留在 Transform，修复输入（雷达原文/Shared/Prompt）后重新执行
+- Next Action: 直接执行 Transform Prompt 里的 Original Radar Production Prompt，生成 Article Draft，保存到 outputs/articles/draft/，随后进入 Fact Boundary Review
+- On Failure: 留在 Transform，修复输入（雷达原文/Prompt）后重新执行
 - Last Updated: {now} by daily_radar_run.py
 """
 
@@ -162,19 +166,19 @@ def daily_index(args: argparse.Namespace, source_id: str, paths: dict[str, Path]
 
 ## 状态
 
-- 雷达原文：已冻结
+- 雷达原文：已冻结（含 Original Radar Production Prompt）
 - 爆点文案筛选卡：{args.selection_card or "未关联"}
-- Shared 七项：已生成
-- Transform 参数：已生成
-- Transform Prompt：已生成
+- Shared 七项：已生成（Quality Review 参照，不参与生成）
+- Transform 执行记录：已生成
+- Transform Prompt：已生成（Execution Adapter：Target Format Contract + Fact Boundary）
 - 数据记录字段：已固定
 
 ## 文件
 
 - 爆点文案筛选卡：{args.selection_card or "未关联"}
 - 雷达原文库：{paths["source"]}
-- Shared 七项：{paths["shared_params"]}
-- Transform 参数：{paths["transform_params"]}
+- Shared 七项（Quality Review 参照）：{paths["shared_params"]}
+- Transform 执行记录：{paths["transform_params"]}
 - Transform Prompt：{paths["transform_prompt"]}
 - 元数据：{paths["metadata"]}
 - 当前位置台账：{paths["position"]}
@@ -183,10 +187,10 @@ def daily_index(args: argparse.Namespace, source_id: str, paths: dict[str, Path]
 
 1. 从爆点文案筛选卡确认今日优先级。
 2. P1 优先生产，P2 可以生产，P3 有空位再生产，不发则停止。
-3. 冻结完整雷达原文。
-4. 从雷达原文提取 Shared 七项。
-5. 用“雷达原文 + Shared 七项 + Transform 参数”生成 Article Master。
-6. Article Master 进入 Review。
+3. 冻结完整雷达原文（含 Original Radar Production Prompt）。
+4. Transform：直接执行 Original Radar Production Prompt，套用 Target Format Contract 和 Fact Boundary，生成 Article Draft。
+5. Fact Boundary Review：独立一轮，逐句核对事实边界。
+6. Quality Review：Fact Boundary Review PASS 后进行，参照 Shared 七项检查覆盖与阅读质量，产出 Article Master。
 7. Review 后进入 Revision 或 Publish。
 8. 发布后进入 Feedback，并与 Baseline 对照。
 
@@ -197,15 +201,17 @@ Collect
   ↓
 Selection
   ↓
-Radar Source
+Radar Source（含 Original Radar Production Prompt）
   ↓
-Shared
+Transform（Execution Adapter）
   ↓
-Transform
+Article Draft
+  ↓
+Fact Boundary Review
+  ↓
+Quality Review（参照 Shared 七项）
   ↓
 Article Master
-  ↓
-Review
   ↓
 Revision / Publish
   ↓
@@ -251,7 +257,7 @@ def main() -> None:
     write(paths["source"], source_markdown(args, source_path, raw_content, source_id))
     write(paths["shared_params"], shared_params(args, source_id, facts_content))
     write(paths["transform_params"], transform_params())
-    write(paths["transform_prompt"], transform_prompt(raw_content, facts_content, paths["shared_params"], paths["transform_params"]))
+    write(paths["transform_prompt"], transform_prompt(raw_content, facts_content))
     write(paths["metadata"], metadata(args, source_id, paths))
     write(paths["index"], daily_index(args, source_id, paths))
     write(paths["position"], position_markdown(args, source_id, paths))

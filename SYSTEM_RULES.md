@@ -27,22 +27,24 @@ Collect
 ↓
 Selection
 ↓
-Radar Source
+Radar Source（含 Original Radar Production Prompt）
 ↓
-Shared
+Transform（Execution Adapter）
 ↓
-Transform
+Article Draft
+↓
+Fact Boundary Review
+↓
+Quality Review（参照 Shared 七项）
 ↓
 Article Master
-↓
-Review
 ↓
 Revision / Publish
 ↓
 Feedback
 ```
 
-`Radar Source` 是 Transform Method，不是独立生命周期。
+`Radar Source` 是 Transform Method，不是独立生命周期。Fact Boundary Review 和 Quality Review 都属于 Review Stage 内部的两轮独立审核，不是新增 Stage。
 
 ## 爆点文案筛选层
 
@@ -163,57 +165,74 @@ Selection 不根据未经验证的历史"爆文规律"（如标题是否疑问�
   ↓
 今日入选文案
   ↓
-雷达原文
+雷达原文（含 Original Radar Production Prompt）
   ↓
-Shared 七项
+Transform（Execution Adapter）
   ↓
-Transform 参数
+Article Draft
+  ↓
+Fact Boundary Review
+  ↓
+Revision（如有）
+  ↓
+Quality Review（参照 Shared 七项）
   ↓
 Article Master
 ```
 
+Shared 七项不再位于生成路径上，只在 Quality Review 阶段作参照，见下方"Review｜Radar Source"。
+
 ### 第一层：雷达原文与雷达/文案详情
 
-原文永久冻结，不允许修改。从 soloapi.cn 采集时，雷达/文案详情是 Transform 的第一依据，必须与列表卡片一并保存。
-
-### 第二层：Shared 七项
-
-Transform 必须完整继承：
-
-- 原始事实
-- 核心冲突
-- 核心利益
-- 目标人群
-- 普通人代入
-- 风险或成本
-- 评论入口
-
-### 第三层：Transform 参数
-
-Transform 参数用于约束平台化表达：
-
-- 不机械照抄雷达原句。
-- 保留雷达已经确认的结构、节奏、核心冲突和表达动作。
-- 完整继承 Shared 七项。
-- 允许为今日头条重新组织句式和表达，但不得改变事实与核心推进。
+原文永久冻结，不允许修改。从 soloapi.cn 采集时，雷达/文案详情是 Transform 的第一依据，必须与列表卡片一并保存。详情页里"给GPT的创作任务单"是 Original Radar Production Prompt，逐字执行，不二次解释。
 
 ## Transform｜Radar Source
 
 输入：
 
-- 雷达/文案详情
-- 原始事实
-- Shared 七项
+- Original Radar Production Prompt（雷达/文案详情原文，含创作任务单）
+- Target Format Contract（今日头条图文，见 `TRANSFORM_STANDARD_V1.md`）
+- Fact Boundary（见 `TRANSFORM_STANDARD_V1.md`）
 
 要求：
 
-- Transform 生产依据必须是 soloapi.cn 目标选题详情页里的“雷达/文案”内容。
-- 列表卡片、筛选卡和 Shared 参数只能作为辅助校验，不能替代“雷达/文案”详情。
-- 保留雷达/文案详情里的终审结构、核心冲突、结构顺序、普通人代入和评论入口。
-- 不机械照抄原句。
-- 允许重新组织句式、标题、篇幅、排版和头条表达；篇幅调整受 [Frozen Output Constraints](TRANSFORM_STANDARD_V1.md#frozen-output-constraints) 约束：先判断雷达给出的 Source Format 与目标今日头条图文的 Target Format 是否一致——一致时，雷达标注的终审字数/段数原样继承；不一致（例如雷达给的是短视频口播规格）时，只继承内容层的 Narrative Spine（叙事节点顺序：事实/核心冲突/普通人代入/情绪推进/评论入口），不继承源格式的时长、字数区间和拍法要求，按 [Target Format Contract](TRANSFORM_STANDARD_V1.md#target-format-contract今日头条图文) 展开成完整头条图文——一个叙事节点可以展开成多个自然段，正文段落数不等于源格式的节点数。
-- 不改变事实与核心推进。
-- 输出 Article Master。
+- Transform 生产依据必须是 soloapi.cn 目标选题详情页里的"雷达/文案"内容，逐字执行创作任务单，不用自己的一套规则重新指导"核心冲突怎么写、怎么推进、普通人怎么代入"——这些交给 Original Radar Production Prompt 本身。
+- 篇幅受 [Frozen Output Constraints](TRANSFORM_STANDARD_V1.md#frozen-output-constraints) 约束：先判断雷达给出的 Source Format 与目标今日头条图文的 Target Format 是否一致——一致时，雷达标注的终审字数/段数原样继承；不一致（例如雷达给的是短视频口播规格）时，只继承内容层的 Narrative Spine（叙事节点顺序），不继承源格式的时长、字数区间和拍法要求，按 Target Format Contract 展开成完整头条图文——一个叙事节点可以展开成多个自然段，正文段落数不等于源格式的节点数。
+- 受 Fact Boundary 约束：不得新增源材料未确认的具体人物行为、事件过程、时间地点、主观认知、因果关系、收费披露状态、具体运作机制、舆情/效果数据、确定性评价；一般性分析必须与本案已确认事实区分。
+- 输出 Article Draft（未经审核，不是最终稿）。
+
+## Review｜Radar Source
+
+Article Draft 生成后，进入两轮独立审核，不能合并成一轮：
+
+### 第一轮：Fact Boundary Review
+
+只回答一个问题：**每一条陈述，本案 Source 能不能支持？** 不管好不好看，不判断结构和展开是否充分。
+
+逐句核对 Article Draft 与雷达详情原文，标出：
+
+- 未经确认的具体人物行为、事件过程、时间地点
+- 未经确认的主观认知、因果关系
+- 未经确认的收费/信息披露状态
+- 未经确认的具体运作机制
+- 未经确认的舆情/效果数据
+- 未加区分、读起来像本案已证实的一般性推演
+
+Fact Boundary Review 不能由生成 Article Draft 的同一次生成过程"自我审计"替代，必须是独立的一轮检查——生成模型很容易把自己的推断当成"合理分析"放过。
+
+输出：PASS（进入 Quality Review）/ REVISION（列出具体句子，退回 Claude 做最小修改，只改被标出的句子，不改结构和展开方式）。
+
+### 第二轮：Quality Review
+
+只有 Fact Boundary Review PASS 之后才进行。检查：
+
+- Shared 七项覆盖：原始事实、核心冲突、核心利益、目标人群、普通人代入、风险或成本、评论入口，逐项确认有没有丢、有没有写偏。Shared 七项在这里的角色是审核参照，不是生成参数。
+- 标题选择（从候选标题中选定，不新造标题）
+- 结构顺序、核心意思、传播能力、阅读体验是否符合 [Target Format Contract](TRANSFORM_STANDARD_V1.md#target-format-contract今日头条图文)
+
+输出：PASS（进入 Publish）/ REVISION（退回 Claude 修改）/ REJECT（结束本次生产）。
+
+Fact Review 和 Quality Review 不能混着做——用"文章终于好看了"降低事实审查标准，或者因为发现事实问题就把文章压得僵硬，都是把两件事混在一起导致的。
 
 ## 数据记录
 
@@ -230,8 +249,9 @@ Transform 参数用于约束平台化表达：
 
 ## 本轮范围
 
-- 完成唯一 Transform 主链。
-- 完成 Selection、Radar Source、Shared、Transform 参数。
+- 完成唯一 Transform 主链，Transform 收缩为 Execution Adapter（Original Radar Production Prompt + Target Format Contract + Fact Boundary）。
+- Review 拆分为 Fact Boundary Review 与 Quality Review 两轮独立审核。
+- Shared 七项角色从生成参数改为 Quality Review 参照清单。
 - 固定数据字段。
 - 固定 Review → Revision / Publish → Feedback 生命周期。
 

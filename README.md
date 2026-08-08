@@ -84,36 +84,53 @@ Shared 七项用于保证 Article Master 继承同题、同事实、同核心冲
 
 生产当日规则：只生产当天采集的选题，`source_date` 必须等于当天日期。当天没有可用选题时，必须回到老师网站爆点文案源重新找；不能拿历史库存硬生产。
 
-默认老师网站产出的文案已经合格，所以这里不判断“文案写得好不好”，只判断它值不值得占用今天的头条发布位。
+默认老师网站产出的文案已经合格，所以这里不判断“文案写得好不好”，只判断它值不值得占用今天的头条发布位。这是一个 Ranking（当日候选相对排序）问题，不是 Absolute Scoring（绝对评分）问题。详细规则见 `templates/radar_selection_rules.md`。
+
+**① Hard Gate（任一 FAIL → 不发，直接停止排序）**：
+
+- G1｜Source Completeness：完整雷达详情是否存在
+- G2｜Fact Boundary：核心事实是否足够明确，能否不自行补事实成文
+- G3｜Risk Boundary：是否存在当前无法处理的事实/法律/安全风险
+- G4｜Freshness：是否仍处于有效发布窗口
+
+**② Internal Ranking（Gate 通过后，用于当日候选排序）**：
+
+- Public Relevance（大众相关度）：高 / 中 / 低
+- Stakes（利益/风险）：高 / 中 / 低
+- Conflict Clarity（冲突清晰度）：高 / 中 / 低
+- Discussion Tension（讨论张力）：高 / 中 / 低
+
+四项不相加、不折算分数，只用于比较当日候选谁更值得优先占位。
+
+**③ External Signal（外部信号，不与②相加，并列参考）**：
+
+- 老师网站/平台今日爆款评分：0-100
+- 来源标签（如 S+/素材质量等）
+
+外部评分很可能已经包含了冲突、热度、传播性等因素，与内部排序变量相加属于 Double Counting（重复计权），禁止相加。
 
 每篇爆点文案只记录：
 
 - 文案ID
 - 原标题
 - 热点类型
-- 账号适配：高 / 中 / 低
-- 普通人相关度：高 / 中 / 低
-- 冲突强度：高 / 中 / 低
-- 利益或风险强度：高 / 中 / 低
-- 评论空间：高 / 中 / 低
-- 热点剩余时效：长 / 中 / 短
+- G1-G4 Gate 结果与说明
+- Public Relevance / Stakes / Conflict Clarity / Discussion Tension：高 / 中 / 低
 - 今日爆款评分：0-100
-- 今日优先级：P1 / P2 / P3 / 不发
 - 来源标签
+- 今日优先级：P1 / P2 / P3 / 不发
 - 入选理由
 
-优先级规则：
+**④ 相对排序**：
 
-- P1：优先生产
-- P2：可以生产
+- P1：当天最值得优先占用发布位
+- P2：次优先
 - P3：有空位再生产
-- 不发：暂不进入生产
+- 不发：Gate 未通过，或综合判断不值得占用当天发布位
 
-评分处理：
+P1/P2/P3 不代表达到某个绝对分数线，只代表当天候选之间的相对顺序；当天候选都弱时可以全部“不发”，都强时仍按相对顺序排出 P1/P2/P3。
 
-- 同等条件下，优先选择今日爆款评分高的文案。
-- 评分高不能覆盖账号不适配、事实风险高、热点过时等硬伤。
-- 今日爆款评分高，且账号适配、普通人相关度、冲突强度为高时，优先进入 P1。
+独立性纪律：Selection 不根据未经验证的历史“爆文规律”（如标题是否疑问句、字数长短等内容表现层面的候选发现）挑题，与 Baseline Review 保持独立。
 
 ## 每日标准流程
 
@@ -248,16 +265,19 @@ python3 scripts/select_radar.py data/radar_pool/保存后的雷达文件.radar.m
   --title "轻资产普通人创业" \
   --hotspot-type "副业创业" \
   --source-date "2026-07-29" \
-  --account-fit 高 \
+  --gate-source-completeness PASS \
+  --gate-fact-boundary PASS \
+  --gate-risk-boundary PASS \
+  --gate-freshness PASS \
+  --gate-notes "详情页完整，事实清楚，无事实/法律风险，仍在发布窗口内" \
   --public-relevance 高 \
-  --conflict-strength 高 \
-  --benefit-risk-strength 高 \
-  --comment-space 中 \
-  --time-window 长 \
+  --stakes 高 \
+  --conflict-clarity 高 \
+  --discussion-tension 中 \
   --viral-score 92 \
   --source-label "确认S+·92分；素材质量78·可用" \
   --priority P1 \
-  --reason "账号适配高，普通人相关度高，适合优先生产"
+  --reason "大众相关度高，利益点具体，冲突清晰，适合优先生产"
 ```
 
 入选后进入生产主链：

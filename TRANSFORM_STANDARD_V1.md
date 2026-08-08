@@ -31,7 +31,7 @@ Transform allows:
 - 排版
 - 标点
 - 语气微调
-- 篇幅控制
+- 篇幅控制（受 [Frozen Output Constraints](#frozen-output-constraints) 约束，见下）
 
 Transform forbids:
 
@@ -43,6 +43,15 @@ Transform forbids:
 - 删除关键论证
 - 改变情绪推进
 - 重新创作
+
+## Frozen Output Constraints
+
+"篇幅控制"这项 Adapt 权限不是无条件的，分两种情况：
+
+- **A｜雷达未给出具体成品规格**：Transform 可以做平台适配性的篇幅调整。
+- **B｜雷达详情已明确给出并标注为终审/最终版的具体成品规格**（例如固定时长、固定段数/结构、明确字数区间、明确输出格式）：这些字段构成 Frozen Output Constraints，优先级高于"篇幅/排版调整"这项一般 Adapt 权限。
+
+命中情况 B 时，Transform 只能在该约束范围内 Adapt：不得把短视频成品扩成长图文，不得改变段数、结构顺序或字数量级。只有雷达详情本身没有给出明确成品规格时，才适用情况 A 的自由篇幅调整。
 
 ## Primary Owner
 

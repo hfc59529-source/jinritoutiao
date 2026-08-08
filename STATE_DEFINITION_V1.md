@@ -45,6 +45,12 @@ Review Completed
 ## Deliverable: 最终发布稿
 
 State:
+Review Completed
+
+Next State:
+Ready for Publish
+
+State:
 Revised
 
 Next State:

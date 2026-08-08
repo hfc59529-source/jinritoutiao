@@ -97,7 +97,6 @@ Exclude permanently.
 Prioritize:
 
 - 今日爆点 S+ 爆点池
-- 官方扶持中素材质量可用的内容
 - 今日爆点 S 级内容
 - 职场
 - 创业
@@ -119,10 +118,9 @@ Prioritize:
 Collect in this order:
 
 1. 今日爆点 S+ 爆点池
-2. 官方扶持中明确标记为“素材质量可用”的内容
-3. 今日爆点 S 级内容
+2. 今日爆点 S 级内容
 
-Do not collect other sections in V1.
+Do not collect other sections in V1. The teacher site no longer provides 官方扶持 as a production source.
 
 ## Collection Intake
 

@@ -22,6 +22,14 @@ def require_today_source_date(source_date: str) -> None:
         )
 
 
+def require_hot_source_column(source_column: str) -> None:
+    if source_column != "今日爆点":
+        raise SystemExit(
+            "--source-column must be 今日爆点. "
+            "The teacher site no longer provides 官方扶持 as a production source."
+        )
+
+
 def slugify(text: str) -> str:
     cleaned = re.sub(r"[^\w\u4e00-\u9fff]+", "-", text.strip()).strip("-")
     return cleaned[:60] or "radar"
@@ -109,11 +117,12 @@ def main() -> None:
     parser.add_argument("--title", required=True)
     parser.add_argument("--hotspot-type", required=True)
     parser.add_argument("--source-date", required=True)
-    parser.add_argument("--source-column", default="")
+    parser.add_argument("--source-column", default="今日爆点")
     parser.add_argument("--source-url", default="")
     parser.add_argument("--source-label", default="")
     args = parser.parse_args()
     require_today_source_date(args.source_date)
+    require_hot_source_column(args.source_column)
 
     _, content = read_source(args.source)
     content_hash = hashlib.sha1(content.encode("utf-8")).hexdigest()[:12]

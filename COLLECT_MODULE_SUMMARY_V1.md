@@ -49,10 +49,9 @@ Collect does not define how source material is collected.
 ## Collection Priority
 
 1. 今日爆点 S+ 爆点池
-2. 官方扶持中明确标记为“素材质量可用”的内容
-3. 今日爆点 S 级内容
+2. 今日爆点 S 级内容
 
-V1 does not collect other sections.
+V1 does not collect other sections. The teacher site no longer provides 官方扶持 as a production source.
 
 ## Collection Intake
 

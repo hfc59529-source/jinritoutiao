@@ -1,0 +1,42 @@
+{
+  "id": "2026-08-09_司机捡手机索1888元还威胁拔卡",
+  "title": "司机捡手机索1888元还威胁拔卡",
+  "hotspot_type": "大众民生/出行维权",
+  "source_date": "2026-08-09",
+  "original_link": "https://www.soloapi.cn/",
+  "original_type": "雷达文案",
+  "selection_card": "data/radar_selection/2026-08-09_司机捡手机索1888元还威胁拔卡_64f087b7.selection.md",
+  "status": "frozen",
+  "production_method": "Radar Source",
+  "paths": {
+    "source": "/Users/huangsheng/Documents/今日头条/jinritoutiao/data/radar_sources/2026-08-09_司机捡手机索1888元还威胁拔卡.md",
+    "shared_params": "/Users/huangsheng/Documents/今日头条/jinritoutiao/outputs/daily_runs/2026-08-09_司机捡手机索1888元还威胁拔卡.shared_params.md",
+    "transform_params": "/Users/huangsheng/Documents/今日头条/jinritoutiao/outputs/daily_runs/2026-08-09_司机捡手机索1888元还威胁拔卡.transform_params.md",
+    "transform_prompt": "/Users/huangsheng/Documents/今日头条/jinritoutiao/prompts/generated/2026-08-09_司机捡手机索1888元还威胁拔卡.transform.prompt.md",
+    "metadata": "/Users/huangsheng/Documents/今日头条/jinritoutiao/outputs/daily_runs/2026-08-09_司机捡手机索1888元还威胁拔卡.metadata.json",
+    "index": "/Users/huangsheng/Documents/今日头条/jinritoutiao/outputs/daily_runs/2026-08-09_司机捡手机索1888元还威胁拔卡.index.md",
+    "position": "/Users/huangsheng/Documents/今日头条/jinritoutiao/outputs/daily_runs/2026-08-09_司机捡手机索1888元还威胁拔卡.position.md"
+  },
+  "parameter_layers": {
+    "radar_selection": "爆点文案筛选卡",
+    "radar_source": "冻结完整雷达原文（含 Original Radar Production Prompt）",
+    "transform": "Execution Adapter：Target Format Contract + Fact Boundary",
+    "output": "Article Draft",
+    "shared": "Shared 七项（Quality Review 参照清单，不参与生成）"
+  },
+  "metrics_fields": [
+    "原始选题ID",
+    "生产方式",
+    "标题",
+    "发布时间",
+    "阅读量",
+    "点赞",
+    "评论",
+    "收益"
+  ],
+  "production_rule": {
+    "priority": "P1/P2/P3 只决定生产优先级，不决定生成篇数。",
+    "transform": "直接执行 Original Radar Production Prompt，Transform 只提供 Target Format Contract 和 Fact Boundary 两个执行适配约束，不重新指导怎么写。",
+    "review": "Fact Boundary Review 与 Quality Review 两轮独立审核，不能合并。"
+  }
+}

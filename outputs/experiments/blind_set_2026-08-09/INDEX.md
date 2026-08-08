@@ -1,5 +1,6 @@
 ---
-status: BLIND_SET_FROZEN
+status: ANNOTATION_FROZEN
+annotation_output: outputs/experiments/annotation_2026-08-09_ANNOTATED.md
 source_runs:
   - outputs/experiments/run_2026-08-08 (Claude executor)
   - outputs/experiments/run_2026-08-08_chatgpt (ChatGPT executor)

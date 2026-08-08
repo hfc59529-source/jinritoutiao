@@ -1,7 +1,11 @@
 ---
 record: Experiment Design
-status: OUTPUTS_FROZEN
+status: CONCLUDED
+result: outputs/experiments/results_2026-08-09_CONCLUDED.md
 run_outputs: outputs/experiments/run_2026-08-08/INDEX.md
+run_outputs_chatgpt: outputs/experiments/run_2026-08-08_chatgpt/INDEX.md
+blind_set: outputs/experiments/blind_set_2026-08-09/INDEX.md
+annotation_output: outputs/experiments/annotation_2026-08-09_ANNOTATED.md
 date: 2026-08-08
 hypothesis: outputs/experiments/hypothesis_fact_boundary_expression_collapse.md
 ---
@@ -107,4 +111,4 @@ hypothesis: outputs/experiments/hypothesis_fact_boundary_expression_collapse.md
 
 # 当前状态
 
-OUTPUTS_FROZEN。10篇产出见 `outputs/experiments/run_2026-08-08/INDEX.md`，已冻结，生成过程中未对照修改、未因某篇质量差而重跑。下一步：Sentence-level Annotation（逐句三分类标注），标注前不再修改本次产出。
+ANNOTATION_FROZEN。20篇（Claude 10篇 + ChatGPT 10篇）已匿名打乱（`blind_set_2026-08-09/`）并完成独立会话的逐句三分类标注（`annotation_2026-08-09_ANNOTATED.md`），标注者未接触 `_sealed/` 映射、未接触本设计文档与 Hypothesis Record。映射尚未解封，Executor × Condition 的指标计算尚未进行，等待明确指令后执行。

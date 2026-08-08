@@ -1,6 +1,8 @@
 ---
 record: Hypothesis Record
-status: OPEN
+status: SUPPORTED
+result: outputs/experiments/results_2026-08-09_CONCLUDED.md
+production_change: templates/transform_radar_source_prompt.md (Fact Boundary → Permission Boundary, 2026-08-09)
 date: 2026-08-08
 related_failure_samples:
   - outputs/experiments/medium_adapter_test_2026-08-08_搬家报价570元.md
@@ -44,7 +46,12 @@ Rhetorical Reasoning（在已批准判断间建立阅读逻辑）与 Content Inf
 结果 A 说明自然语言层面已经够用，不需要更复杂的结构。
 结果 C、D 都不满足进入下一层设计的证据条件。
 
+# Secondary Observation（二级观察，先记录，不处理）
+
+Executor Effect 显示：Claude-Control 更容易 Collapse（ECR 高、CVR 低），ChatGPT-Control 更容易 Violate（ECR 低、CVR 高）——同一份模糊的 Fact Boundary 文本，在不同底层模型上导致了不同的失败模式。这提示"权限边界模糊"这件事本身对不同模型的影响机制可能不一样，但这不是本次 H 的研究对象，不据此展开"Claude Prompt / ChatGPT Prompt 两套系统"的设计工作。仅记录，留待后续如果有独立立项需求时再研究。
+
 # 当前状态
 
-Candidate Hypothesis（候选假设）：已有 Failure Evidence 支持，尚未经受控实验验证。
-不改 Prompt / 不改 Adapter / 不改 Production Flow，直到 Experiment Design（见同目录 `experiment_design_content_expression_decoupling.md`）跑完并完成逐句标注。
+SUPPORTED。落在预注册结果 A：ECR 系统性下降（10组配对中9组下降、1组持平，0组反向），CVR 无系统性上升（5正5负，总体 +0.018，方向不一致）。详见 `results_2026-08-09_CONCLUDED.md`。
+
+已执行的最小生产变更：`templates/transform_radar_source_prompt.md` 第2节 Fact Boundary → Permission Boundary（Content Authority CLOSED / Expression Authority OPEN），逐字替换为实验中已验证的 Treatment 文本，其余部分（Target Format Contract、输出边界、输出格式）未改动。不触碰 Narrative Spine、Radar、Writer Role，不建 Judgment Permission Graph，不新增参数，不重写 Adapter，不重新设计 QA——这些均未被本次实验验证，留待真实生产文章的后续观察决定是否需要。

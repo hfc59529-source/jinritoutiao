@@ -1,0 +1,145 @@
+{
+  "seed": 20260809,
+  "mapping": [
+    {
+      "anon_id": "A01",
+      "executor": "Claude",
+      "sample": "S3_inheritance",
+      "condition": "control",
+      "source_path": "run_2026-08-08/S3_游戏账号继承_control.md"
+    },
+    {
+      "anon_id": "A02",
+      "executor": "ChatGPT",
+      "sample": "S3_inheritance",
+      "condition": "control",
+      "source_path": "run_2026-08-08_chatgpt/03_inheritance_control.md"
+    },
+    {
+      "anon_id": "A03",
+      "executor": "Claude",
+      "sample": "S4_scam",
+      "condition": "control",
+      "source_path": "run_2026-08-08/S4_旅游搭子骗局_control.md"
+    },
+    {
+      "anon_id": "A04",
+      "executor": "ChatGPT",
+      "sample": "S1_finance",
+      "condition": "treatment",
+      "source_path": "run_2026-08-08_chatgpt/01_finance_treatment.md"
+    },
+    {
+      "anon_id": "A05",
+      "executor": "ChatGPT",
+      "sample": "S5_driving",
+      "condition": "treatment",
+      "source_path": "run_2026-08-08_chatgpt/05_driving_treatment.md"
+    },
+    {
+      "anon_id": "A06",
+      "executor": "ChatGPT",
+      "sample": "S4_scam",
+      "condition": "treatment",
+      "source_path": "run_2026-08-08_chatgpt/04_scam_treatment.md"
+    },
+    {
+      "anon_id": "A07",
+      "executor": "ChatGPT",
+      "sample": "S2_privacy",
+      "condition": "treatment",
+      "source_path": "run_2026-08-08_chatgpt/02_privacy_treatment.md"
+    },
+    {
+      "anon_id": "A08",
+      "executor": "ChatGPT",
+      "sample": "S1_finance",
+      "condition": "control",
+      "source_path": "run_2026-08-08_chatgpt/01_finance_control.md"
+    },
+    {
+      "anon_id": "A09",
+      "executor": "Claude",
+      "sample": "S5_driving",
+      "condition": "treatment",
+      "source_path": "run_2026-08-08/S5_智驾脱手处罚_treatment.md"
+    },
+    {
+      "anon_id": "A10",
+      "executor": "Claude",
+      "sample": "S3_inheritance",
+      "condition": "treatment",
+      "source_path": "run_2026-08-08/S3_游戏账号继承_treatment.md"
+    },
+    {
+      "anon_id": "A11",
+      "executor": "ChatGPT",
+      "sample": "S4_scam",
+      "condition": "control",
+      "source_path": "run_2026-08-08_chatgpt/04_scam_control.md"
+    },
+    {
+      "anon_id": "A12",
+      "executor": "Claude",
+      "sample": "S1_finance",
+      "condition": "treatment",
+      "source_path": "run_2026-08-08/S1_科技省份增长消费滞后_treatment.md"
+    },
+    {
+      "anon_id": "A13",
+      "executor": "Claude",
+      "sample": "S5_driving",
+      "condition": "control",
+      "source_path": "run_2026-08-08/S5_智驾脱手处罚_control.md"
+    },
+    {
+      "anon_id": "A14",
+      "executor": "Claude",
+      "sample": "S4_scam",
+      "condition": "treatment",
+      "source_path": "run_2026-08-08/S4_旅游搭子骗局_treatment.md"
+    },
+    {
+      "anon_id": "A15",
+      "executor": "ChatGPT",
+      "sample": "S5_driving",
+      "condition": "control",
+      "source_path": "run_2026-08-08_chatgpt/05_driving_control.md"
+    },
+    {
+      "anon_id": "A16",
+      "executor": "ChatGPT",
+      "sample": "S3_inheritance",
+      "condition": "treatment",
+      "source_path": "run_2026-08-08_chatgpt/03_inheritance_treatment.md"
+    },
+    {
+      "anon_id": "A17",
+      "executor": "Claude",
+      "sample": "S2_privacy",
+      "condition": "treatment",
+      "source_path": "run_2026-08-08/S2_女子修手机私密照_treatment.md"
+    },
+    {
+      "anon_id": "A18",
+      "executor": "Claude",
+      "sample": "S1_finance",
+      "condition": "control",
+      "source_path": "run_2026-08-08/S1_科技省份增长消费滞后_control.md"
+    },
+    {
+      "anon_id": "A19",
+      "executor": "ChatGPT",
+      "sample": "S2_privacy",
+      "condition": "control",
+      "source_path": "run_2026-08-08_chatgpt/02_privacy_control.md"
+    },
+    {
+      "anon_id": "A20",
+      "executor": "Claude",
+      "sample": "S2_privacy",
+      "condition": "control",
+      "source_path": "run_2026-08-08/S2_女子修手机私密照_control.md"
+    }
+  ]
+}

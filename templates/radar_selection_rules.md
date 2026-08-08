@@ -24,6 +24,14 @@ Article Master
 
 Selection 不负责再次判断"这是不是热点"，只回答：**在今天已经采到的候选爆点中，哪一条最值得占用今天的生产和发布资源？** 这是一个 Ranking（排序）问题，不是 Absolute Scoring（绝对评分）问题。
 
+## 与 Pre-Filter 的边界
+
+Pre-Filter 是 Collect 内部的 Acquisition Decision（采集决策），只基于标题、榜单位置、列表评分/标签、来源日期等廉价信息判断是否值得抓详情。
+
+Selection V2 是 Publication Decision（发布资源决策），必须基于完整雷达详情和已保存原文判断是否值得占用生产/发布位。
+
+Pre-Filter 不允许输出 P1 / P2 / P3，不允许替代 Selection V2。标题阶段不确定的候选不得淘汰，应保留到详情页后再正式筛选。
+
 ## ① Hard Gate（硬性门槛，任一 FAIL 直接不发）
 
 Gate 判断"我们有没有足够事实安全地写"，不是判断"这个话题是否敏感/有争议"。争议本身不是拒绝理由，事实不足或风险不可控才是。

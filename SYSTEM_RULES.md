@@ -119,10 +119,12 @@ Selection 不判断"这是不是热点"，只判断"今天已采到的候选里�
 
 **② Internal Ranking（Gate 通过后，用于当日候选排序，不相加不折算分数）**
 
-- Public Relevance（大众相关度）：高 / 中 / 低
-- Stakes（利益/风险）：高 / 中 / 低
+- Public Relevance（大众相关度）：命中 [Reader Model](READER_MODEL_V1.md) 五按钮（钱/工作/规则/公平/家庭）中哪几个，高 / 中 / 低
+- Stakes（利益/风险）：命中按钮上的具体损失/错过，高 / 中 / 低
 - Conflict Clarity（冲突清晰度）：高 / 中 / 低
 - Discussion Tension（讨论张力）：高 / 中 / 低
+
+Reader Model 只用于 Selection 判断和 Quality Review 的 Reader Promise 检查，不进入 Transform 生成层——Transform 仍然只执行 Original Radar Production Prompt。
 
 **③ External Signal（外部信号，与②并列参考，禁止相加）**
 
@@ -138,6 +140,7 @@ Selection 不判断"这是不是热点"，只判断"今天已采到的候选里�
 - 热点类型
 - G1-G4 Gate 结果与说明
 - Public Relevance / Stakes / Conflict Clarity / Discussion Tension：高 / 中 / 低
+- 命中 Reader Model 按钮：钱 / 工作 / 规则 / 公平 / 家庭（可多选，写明命中理由）
 - 今日爆款评分：0-100
 - 来源标签
 - 今日优先级：P1 / P2 / P3 / 不发
@@ -227,25 +230,55 @@ Fact Boundary Review 不能由生成 Article Draft 的同一次生成过程"自�
 只有 Fact Boundary Review PASS 之后才进行。检查：
 
 - Shared 七项覆盖：原始事实、核心冲突、核心利益、目标人群、普通人代入、风险或成本、评论入口，逐项确认有没有丢、有没有写偏。Shared 七项在这里的角色是审核参照，不是生成参数。
-- 标题选择（从候选标题中选定，不新造标题）
+- Reader Promise 检查：成品是否真的完成了 [Reader Model](READER_MODEL_V1.md) 在 Selection 阶段标注的按钮承诺，而不只是叙述完整。
+- 标题选择（从候选标题中选定，不新造标题），并核对 Title Candidate Rule（见下）
 - 结构顺序、核心意思、传播能力、阅读体验是否符合 [Target Format Contract](TRANSFORM_STANDARD_V1.md#target-format-contract今日头条图文)
 
 输出：PASS（进入 Publish）/ REVISION（退回 Claude 修改）/ REJECT（结束本次生产）。
+
+### Title Candidate Rule（标题候选规则，前瞻验证中）
+
+依据：[`FEATURE_EXTRACTION_SCHEMA_V3_TITLE_RESOLUTION.md`](FEATURE_EXTRACTION_SCHEMA_V3_TITLE_RESOLUTION.md)。46 篇盲标复盘发现：`title_resolves_outcome=TRUE`（标题已经把核心结果/原因/怎么办讲完）的 CTR 中位数（0.143%）明显低于 `FALSE`（留有信息缺口，0.321%），剔除单点异常值后方向不变，已达到该报告定义的 Candidate Production Rule 门槛，但**尚未经过下一批真实发布的前瞻验证**。
+
+Quality Review 阶段执行方式：
+
+- 对候选标题标注 `title_resolves_outcome`（TRUE/FALSE），记录在案，不作为 PASS/REVISION/REJECT 的判断依据（**不是 Hard Gate**）。
+- 倾向选择 FALSE（留有信息缺口）的候选标题，但不得为了留缺口而扭曲标题与事实的对应关系。
+- 该标注进入 Feedback，用于前瞻验证；前瞻验证通过之前，不得把它固化为强制 Gate 或独立 Packaging Module。
 
 Fact Review 和 Quality Review 不能混着做——用"文章终于好看了"降低事实审查标准，或者因为发现事实问题就把文章压得僵硬，都是把两件事混在一起导致的。
 
 ## 数据记录
 
-每篇只记录：
+每篇记录：
 
 - 原始选题ID
 - 生产方式：Radar Source
 - 标题
+- 命中 Reader Model 按钮（Selection 阶段标注）
+- `title_resolves_outcome`（Quality Review 阶段标注，TRUE/FALSE）
 - 发布时间
+- 展现量
 - 阅读量
+- 点击率（CTR = 阅读量 / 展现量）
+- 阅读时长
 - 点赞
 - 评论
 - 收益
+
+字段来自真实后台导出（见 `data/metrics/`），Feedback 记录字段不得少于后台实际可采集的字段——字段缺口本身就是需要修的 Bug，不是"以后再说"的扩展项。
+
+## Validation（Feedback 闭环）
+
+Feedback 收集的数据用于验证三类假设，缺 Validation，Reader Model / Title Candidate Rule / 正文规律最终都会退化成"我感觉这个有效"：
+
+| 假设 | 输入信号（来自 Feedback） | 验证的环节 |
+| --- | --- | --- |
+| Selection 假设 | 命中 Reader Model 按钮 → 展现量、阅读量 | Selection 判断是否真的挑出了值得占用发布位的素材 |
+| Title 假设 | `title_resolves_outcome` → CTR（阅读量/展现量） | Title Candidate Rule 是否在前瞻批次里成立 |
+| 正文假设 | Shared 七项覆盖、Reader Promise 完成度 → 阅读时长、评论、互动 | 正文是否真正完成了利益关联，而不只是叙述完整 |
+
+Validation 不是新增 Stage，是 Feedback 之后的最小闭环动作：每次复盘先按这三类分别定位（展现问题 / CTR问题 / 阅读时长与互动问题），再决定改 Selection、改标题候选还是改 Transform 依据的雷达原文，不允许跳过定位直接下"选题不行"这类笼统结论。
 
 ## 本轮范围
 
@@ -256,3 +289,9 @@ Fact Review 和 Quality Review 不能混着做——用"文章终于好看了"�
 - 固定 Review → Revision / Publish → Feedback 生命周期。
 
 不要修改现有知乎系统，不要新增复杂数据库，不要重新设计大 Prompt。
+
+## 本轮范围（Reader Model / Title Candidate Rule / Validation 接口）
+
+- 新增 [`READER_MODEL_V1.md`](READER_MODEL_V1.md)，作为 Selection R1/R2 判断模型，同时供 Quality Review Reader Promise 检查、Feedback/Validation 使用。不新增 Stage，不进入 Transform。
+- Title Candidate Rule（`FEATURE_EXTRACTION_SCHEMA_V3_TITLE_RESOLUTION.md`）接入 Quality Review，作为标题选择时的软倾向，不作为 Hard Gate，前瞻验证通过前不固化为独立 Packaging Module。
+- Feedback 数据记录字段从 8 项扩展为对齐真实后台可采集字段（展现量、点击率、阅读时长等），并新增 Validation 小节，把 Feedback 数据显式对应到 Selection / Title / 正文三类假设的验证。

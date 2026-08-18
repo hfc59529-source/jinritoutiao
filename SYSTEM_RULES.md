@@ -229,7 +229,12 @@ Fact Boundary Review 不能由生成 Article Draft 的同一次生成过程"自�
 
 只有 Fact Boundary Review PASS 之后才进行。检查：
 
-- Shared 七项覆盖：原始事实、核心冲突、核心利益、目标人群、普通人代入、风险或成本、评论入口，逐项确认有没有丢、有没有写偏。Shared 七项在这里的角色是审核参照，不是生成参数。
+- **Shared 七项 Fidelity Check（保真度检查，不是 Presence Check）**：原始事实、核心冲突、核心利益、目标人群、普通人代入、风险或成本、评论入口，逐项对照雷达原文，判断的不是"有没有"，而是"是否被弱化、泛化或错译"。逐项在 Radar 原句和 Article 对应句之间填：
+  - Radar 原句（雷达原文里这一项具体怎么写的）
+  - Article 对应句
+  - 判定：Preserved（语义等价，允许换语言不换语义）/ Weakened（保留了方向但丢了具体性，如"定金和行程都可能打水漂"被写成"注意旅游诈骗"）/ Generalized（具体冲突被抽象成泛泛的行业/时代评论，如"用户协议 vs 法院认定"被写成"数字资产值得关注"）/ Mistranslated（方向或结论变了）
+  - 只要一项判定为 Weakened / Generalized / Mistranslated，视为未通过该项，不能因为"文笔通顺、读起来完整"就放过。
+  - Shared 七项在这里的角色是审核参照，不是生成参数。
 - Reader Promise 检查：成品是否真的完成了 [Reader Model](READER_MODEL_V1.md) 在 Selection 阶段标注的按钮承诺，而不只是叙述完整。
 - 标题选择（从候选标题中选定，不新造标题），并核对 Title Candidate Rule（见下）
 - 结构顺序、核心意思、传播能力、阅读体验是否符合 [Target Format Contract](TRANSFORM_STANDARD_V1.md#target-format-contract今日头条图文)
@@ -295,3 +300,4 @@ Validation 不是新增 Stage，是 Feedback 之后的最小闭环动作：每�
 - 新增 [`READER_MODEL_V1.md`](READER_MODEL_V1.md)，作为 Selection R1/R2 判断模型，同时供 Quality Review Reader Promise 检查、Feedback/Validation 使用。不新增 Stage，不进入 Transform。
 - Title Candidate Rule（`FEATURE_EXTRACTION_SCHEMA_V3_TITLE_RESOLUTION.md`）接入 Quality Review，作为标题选择时的软倾向，不作为 Hard Gate，前瞻验证通过前不固化为独立 Packaging Module。
 - Feedback 数据记录字段从 8 项扩展为对齐真实后台可采集字段（展现量、点击率、阅读时长等），并新增 Validation 小节，把 Feedback 数据显式对应到 Selection / Title / 正文三类假设的验证。
+- Quality Review 的 Shared 七项检查从 Presence Check（有没有）升级为 Fidelity Check（有没有被弱化/泛化/错译），逐项对照雷达原文判定 Preserved / Weakened / Generalized / Mistranslated。不新增 Semantic Freeze 独立步骤——雷达原文本身已永久冻结（见"第一层：雷达原文与雷达/文案详情"），Fidelity Check 直接对照冻结原文即可，不需要额外提取一层结构化字段。

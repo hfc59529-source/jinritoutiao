@@ -36,6 +36,12 @@ Fidelity 的判断标准需要区分两件事：
 
 结论：Redundancy 在**没有人工编辑介入**的纯系统执行下依然出现，说明这不是写作者个人习惯问题，更可能是"跨格式展开 + Fidelity 保真"方法本身的倾向。样本量 2，仍未达到"稳定复现"判断门槛，继续观察，暂不新增规则。
 
+## 第三个数据点（不同选题："考驾照的人为何变少了"）
+
+同一天第三篇 Trial，写作时主动意识到 Redundancy 模式后，同一节点（"学费涨不涨"）只在 Ordinary-person Stakes 位置完整出现一次，结尾只做简短呼应，未再展开成完整段落。
+
+判定：轻微重复，不算违规。说明 Redundancy 不是"跨格式展开 + Fidelity 保真"方法必然导致的结果，而是写作时是否主动收着写的问题——人可以在不违反 Fidelity（不丢语义）的前提下控制住重复。继续观察，暂不需要升级为 Gate；如果后续样本又出现明显的多段重复，再考虑规则化。详见 `outputs/articles/reviewed/2026-08-19_考驾照的人为何变少了_c2bdcf2f.review.md`。
+
 ## 本次样本处理方式
 
 Quality Review 判定 REVISION（不是 Fact Boundary Review 的"只改标出句子"限制——Quality Review 的 REVISION 允许整体压缩表达，只要不改变 Narrative Spine 和已保真的核心语义）。人工重写压缩版，同一语义只保留一次最强表达，Narrative Spine（事实→冲突→为什么→谁得利/谁承担→普通人处境→回收）未变。最终稿见 `outputs/articles/reviewed/2026-08-19_手机壳-医疗垃圾_0384b7a8.review.md`。

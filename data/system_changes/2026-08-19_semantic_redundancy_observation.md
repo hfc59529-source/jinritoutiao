@@ -24,6 +24,18 @@ Fidelity 的判断标准需要区分两件事：
 
 暂不新增 Semantic Redundancy Gate 或规则，避免重犯"没验证业务规律就工程化"的错误（参考 [[project_zhihu_performance_funnel]] 的教训）。先记录为观察，连续跑几篇 Production Trial，如果"Fidelity 保住但成稿仍冗余"稳定复现，再考虑是否把 Semantic Redundancy Check 补进 Quality Review。
 
+## 第二个数据点（同一选题，纯系统重跑，不含人工偏好编辑）
+
+按用户要求做了第二次 Trial：不加人工观点，只执行 Radar → 今日头条图文的纯系统跨格式展开（同一选题"手机壳 医疗垃圾"）。
+
+结果：
+
+- Fidelity Check 7/7 Preserved，"普通人代入"（医院废弃针管）这次一次成型，未出现第一版那种 Weakened。
+- Fact Boundary 自查：新增的通用生活场景描写（"坐公交/吃饭/刷视频/打电话贴脸"）和"每天握几个小时"的量化，经核对 `TRANSFORM_STANDARD_V1.md` 的一般性分析条款，判定 PASS，不算编造本案事实。
+- Semantic Redundancy 仍然出现：同一条"商家压缩成本→消费者健康风险"语义在正文中被展开了两次。
+
+结论：Redundancy 在**没有人工编辑介入**的纯系统执行下依然出现，说明这不是写作者个人习惯问题，更可能是"跨格式展开 + Fidelity 保真"方法本身的倾向。样本量 2，仍未达到"稳定复现"判断门槛，继续观察，暂不新增规则。
+
 ## 本次样本处理方式
 
 Quality Review 判定 REVISION（不是 Fact Boundary Review 的"只改标出句子"限制——Quality Review 的 REVISION 允许整体压缩表达，只要不改变 Narrative Spine 和已保真的核心语义）。人工重写压缩版，同一语义只保留一次最强表达，Narrative Spine（事实→冲突→为什么→谁得利/谁承担→普通人处境→回收）未变。最终稿见 `outputs/articles/reviewed/2026-08-19_手机壳-医疗垃圾_0384b7a8.review.md`。

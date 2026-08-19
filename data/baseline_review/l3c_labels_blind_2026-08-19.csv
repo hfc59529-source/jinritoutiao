@@ -1,0 +1,59 @@
+schema_version,label_status,title,publish_time,interest_button_primary,first_publication_freshness_days,anchor_type,active_wave_freshness_days,wave_evidence_note,evidence_note
+L3C_V1,LOCKED_BLIND,云南出手了，投诉量前50的旅行社全部被约谈！,2026-08-19 14:00,钱,0,radar_capture_fallback,0,no_search_performed_prior_context_contamination,"素材source_date=2026-08-19仅为今日爆点上榜日期,无独立首次报道时间;主按钮判定:读者作为消费者报旅行团是否被坑钱"
+L3C_V1,LOCKED_BLIND,17岁女孩坐顺风车，被锁车内暴晒近2小时 向家人求救！,2026-08-19 12:00,家庭,0,radar_capture_fallback,0,no_search_performed_prior_context_contamination,"素材source_date=2026-08-19仅为今日爆点上榜日期,无独立首次报道时间;主按钮判定:未成年子女出行安全,家长视角关切"
+L3C_V1,LOCKED_BLIND,考驾照的人为何变少了，驾校的黄金时代过去了？,2026-08-19 08:00,规则,0,radar_capture_fallback,0,no_search_performed_prior_context_contamination,"素材source_date=2026-08-19仅为今日爆点上榜日期,无独立首次报道时间;主按钮判定:以前必须考驾照的经验/路径是否还成立"
+L3C_V1,LOCKED_BLIND,爸爸带14岁厌学儿子三伏天送外卖！,2026-08-19 06:00,家庭,0,radar_capture_fallback,0,no_search_performed_prior_context_contamination,"素材source_date=2026-08-19仅为今日爆点上榜日期,无独立首次报道时间;主按钮判定:亲子教育/家庭管教方式选择"
+L3C_V1,LOCKED_BLIND,广东上调最低工资，新一轮涨工资开始了！,2026-08-19 04:00,钱,0,radar_capture_fallback,0,no_search_performed_prior_context_contamination,"素材source_date=2026-08-19仅为今日爆点上榜日期,无独立首次报道时间;主按钮判定:直接涉及读者收入金额"
+L3C_V1,LOCKED_BLIND,你手里的手机壳，可能是医疗垃圾做的！,2026-08-19 00:21,公平,0,radar_capture_fallback,0,no_search_performed_prior_context_contamination,"素材source_date=2026-08-19仅为今日爆点上榜日期,无独立首次报道时间;主按钮判定:商家压缩成本转嫁健康风险给消费者,谁占便宜谁承担代价"
+L3C_V1,LOCKED_BLIND,胖东来闭店员工称全员去新店！,2026-08-17 12:00,工作,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:员工岗位安置
+L3C_V1,LOCKED_BLIND,市场占有率超6成！中国车发现新大陆！,2026-08-17 08:00,无,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:行业出海数据,未见清晰个人利益落点
+L3C_V1,LOCKED_BLIND,废油变身抢手货 出口订单排到明年！,2026-08-17 06:00,无,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:行业数据,未见清晰个人利益落点
+L3C_V1,LOCKED_BLIND,许昌 胖东来 附近老板流泪说舍不得！,2026-08-17 04:00,公平,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:大企业进入冲击小老板生存,占便宜/承担成本对比
+L3C_V1,LOCKED_BLIND,多名成年人被父母送进矫治机构！,2026-08-17 02:00,家庭,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:家庭教养方式冲突
+L3C_V1,LOCKED_BLIND,请3天假就能连休13天，这个拼假方案今天刷屏了！,2026-08-16 21:13,规则,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:请假规则/经验是否还适用
+L3C_V1,LOCKED_BLIND,TikTok允许用户降低AI内容比例，真正变化的是流量由谁决定！,2026-07-27 12:00,规则,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:平台规则变化,未直接落到读者钱/工作
+L3C_V1,LOCKED_BLIND,TikTok开始识别AI批量垃圾账号，真正被淘汰的可能不是AI,2026-07-27 10:00,工作,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:内容创作者饭碗
+L3C_V1,LOCKED_BLIND,能源成本上涨，但企业不敢向消费者提价？,2026-07-27 08:00,钱,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:成本转嫁是否落到消费者身上
+L3C_V1,LOCKED_BLIND,KFC和必胜客靠折扣恢复增长，但低价不能直接复制！,2026-07-27 06:00,无,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:企业经营策略分析,未见清晰个人利益落点
+L3C_V1,LOCKED_BLIND,消费贷款违约创新高，低收入用户正在主动缩减需求！,2026-07-27 04:00,钱,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:借贷/消费收支压力
+L3C_V1,LOCKED_BLIND,中国线上餐饮增长13.9%，餐饮入口继续向数字渠道迁移！,2026-07-27 02:37,无,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:行业数据,未见清晰个人利益落点
+L3C_V1,LOCKED_BLIND,24批次食品不合格，别等吃进嘴才知道,2026-07-25 13:00,家庭,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:食品安全关系全家饮食
+L3C_V1,LOCKED_BLIND,亚马逊最高退51美元：自动续费该查了,2026-07-25 11:00,钱,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:直接涉及读者能不能拿回钱
+L3C_V1,LOCKED_BLIND,携程被罚没51.79亿元：你订酒店时看到的“最低价”到底谁说了算,2026-07-25 09:06,公平,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:平台定价权,谁占便宜谁承担
+L3C_V1,LOCKED_BLIND,8年质保到期后，电车车主才发现：最贵的可能不是买车,2026-07-24 13:00,钱,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:车主后续隐性支出
+L3C_V1,LOCKED_BLIND,317万年终奖截图传出去后被辞退：职场人真正该怕的不是炫富,2026-07-24 11:54,工作,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:职场行为与岗位风险
+L3C_V1,LOCKED_BLIND,贵州遵义多部门查处抠脚汉扮美女卖酒涉事公司！,2026-07-24 06:00,公平,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:消费欺诈,谁占便宜谁受骗
+L3C_V1,LOCKED_BLIND,68元请香结账变952元，湖南衡阳通报涉事商行罚款4000元，停业7天,2026-07-24 04:00,钱,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:消费者被多收钱
+L3C_V1,LOCKED_BLIND,自驾新能源汽车跨境遭远程锁车超30小时，车主称事前未提醒！,2026-07-24 02:00,规则,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:车辆使用权规则/经验被颠覆
+L3C_V1,LOCKED_BLIND,特斯拉营收增长26%，利润却下降：卖得更多，为什么赚钱更难？,2026-07-23 17:00,无,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:企业财报分析,未见清晰个人利益落点
+L3C_V1,LOCKED_BLIND,亚马逊裁减AGI团队岗位，AI研发开始接受业务优先级审查！,2026-07-23 15:01,工作,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:岗位裁撤
+L3C_V1,LOCKED_BLIND,年轻人为何少喝康师傅？,2026-07-23 13:00,无,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:消费趋势分析,未见清晰个人利益落点
+L3C_V1,LOCKED_BLIND,多款高端手机涨价超1000元：新机越来越贵，还需要年年换吗？,2026-07-23 11:00,钱,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:直接涉及购机支出
+L3C_V1,LOCKED_BLIND,净网：网警发布20起涉汛涉灾谣言案例！,2026-07-23 09:26,规则,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:网络行为监管规则
+L3C_V1,LOCKED_BLIND,求职者因过往民事诉讼被大厂拒聘，过度背调引争议！,2026-07-23 07:55,工作,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:求职资格/背调规则影响饭碗
+L3C_V1,LOCKED_BLIND,TikTok Shop开始亲自替商家做运营，代运营行业可能被平台吞掉！,2026-07-22 18:55,工作,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:代运营从业者饭碗
+L3C_V1,LOCKED_BLIND,上半年全国城镇新增就业695万人，同比持平！,2026-07-22 18:00,工作,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:宏观就业数据
+L3C_V1,LOCKED_BLIND,外卖补贴监管进入落地窗口，餐饮流量战将从补贴转向利润核算,2026-07-22 17:00,工作,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:骑手/商家相关行业收入结构变化
+L3C_V1,LOCKED_BLIND,国家消费规划明确支持地域餐饮品牌和美食产业集群！,2026-07-22 16:00,无,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:政策通报,未见清晰个人利益落点
+L3C_V1,LOCKED_BLIND,第一批电车电池8年质保潮来临！,2026-07-22 15:00,钱,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:车主后续换电池支出
+L3C_V1,LOCKED_BLIND,2026年财富中国500强出炉Q！,2026-07-22 14:00,无,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:企业排行榜,未见清晰个人利益落点
+L3C_V1,LOCKED_BLIND,女子临近退休差点多等11年领养老金！,2026-07-22 13:00,规则,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:养老金规则执行是否可靠
+L3C_V1,LOCKED_BLIND,老人赠房56岁女友被叫停！,2026-07-22 12:00,家庭,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:家庭财产纠纷
+L3C_V1,LOCKED_BLIND,"酒店低价早餐券灰产:用差评换霸王餐,有商家卖出3万张获利数十万",2026-07-22 10:00,公平,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:钻平台规则空子,谁占便宜谁承担
+L3C_V1,LOCKED_BLIND,"女子买二手房吊顶流出血水,原房东疑因卖亏了在房中藏死鸡报复",2026-07-22 08:54,公平,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:买卖双方博弈与报复行为
+L3C_V1,LOCKED_BLIND,英国首相伯纳姆首秀：将启动40年来最大改革,2026-07-22 04:00,无,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:国际政治,与国内读者利益无直接关联
+L3C_V1,LOCKED_BLIND,美国对加拿大产品加征50%关税！,2026-07-22 03:00,无,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:国际贸易,未见清晰个人利益落点
+L3C_V1,LOCKED_BLIND,美股高开低走 芯片股反弹！,2026-07-22 02:01,无,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:财经行情资讯,未见清晰个人利益落点
+L3C_V1,LOCKED_BLIND,世界杯日均消耗15.84万亿Token！,2026-07-22 01:00,无,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:科技趣闻,未见清晰个人利益落点
+L3C_V1,LOCKED_BLIND,美国拟限制中国开源AI模型！,2026-07-21 21:00,无,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:国际科技政策,未见清晰个人利益落点
+L3C_V1,LOCKED_BLIND,71岁奶奶救人被认定见义勇为！,2026-07-21 20:00,公平,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:见义勇为认定关乎当事人权益是否被公平对待
+L3C_V1,LOCKED_BLIND,SpaceX首份财报将至，真正要接受检验的是这门生意,2026-07-21 19:01,无,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:企业财报预告,未见清晰个人利益落点
+L3C_V1,LOCKED_BLIND,月租4600元的酒店，为什么开始有人住？,2026-07-21 18:00,钱,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:居住成本/消费选择变化
+L3C_V1,LOCKED_BLIND,卖一辆10万元的新车只赚1500元，这笔账到底怎么算？,2026-07-21 17:00,工作,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:汽车经销从业者利润空间
+L3C_V1,LOCKED_BLIND,赣锋锂业等成立能源科技公司，普通人该看懂什么信号？,2026-07-21 16:11,钱,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:投资/财富信号解读
+L3C_V1,LOCKED_BLIND,菲方围顶冲撞中方巡逻艇视频曝光！,2026-07-21 08:46,无,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:国际时事,未见清晰个人利益落点
+L3C_V1,LOCKED_BLIND,一年超8万家面包店关停：为什么每天都有人买还是有人撑不下去？,2026-07-20 21:12,工作,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:小店主经营生存
+L3C_V1,LOCKED_BLIND,两类服务业增长超10%，小老板该重新理解轻资产！,2026-07-19 11:37,工作,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:创业者/小老板经营方向
+L3C_V1,LOCKED_BLIND,服务消费增长5.3%，为什么只卖商品越来越难赚钱？,2026-07-19 10:25,工作,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:商家经营模式与利润
+L3C_V1,LOCKED_BLIND,创业失败以后，还是愿意继续找老师、找陪跑、找圈子？,2026-07-17 04:00,工作,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:创业者职业路径选择
+L3C_V1,LOCKED_BLIND,为什么很多老板越来越忙，公司却越来越赚不到钱？,2026-07-16 18:55,工作,NA,no_source_material,NA,no_source_material,no_source_material_found_in_repo；主按钮判定:经营者工作/收入错位
